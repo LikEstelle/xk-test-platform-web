@@ -46,7 +46,8 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo('admin-token').then(response => {
+      // getInfo(state.token).then(response => {
         const { data } = response
 
         if (!data) {
