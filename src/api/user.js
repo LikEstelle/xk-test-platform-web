@@ -16,6 +16,17 @@ export function getInfo(token) {
   })
 }
 
+// export function getInfo(token) {
+//   return request({
+//     url: `/xiaoke-tool-platform/api/v1/user/getUserInfo?token=${token}`,
+//     method: 'get',
+//     // params: { token }
+//   })
+// }
+
+// export const getInfo = (token)=>request({url:`/xiaoke-tool-platform/api/v1/user/getUserInfo?token=${token}`,method:'get'});
+
+
 export function logout() {
   return request({
     url: '/vue-admin-template/user/logout',
