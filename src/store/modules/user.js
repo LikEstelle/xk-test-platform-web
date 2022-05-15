@@ -46,7 +46,7 @@ const actions = {
 
   // get user info
   getInfo({ commit, state }) {
-    console.log('111')
+    console.log('get user info')
     return new Promise((resolve, reject) => {
       getInfo('admin-token').then(response => {
         // getInfo(state.token).then(response => {
