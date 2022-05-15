@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      test:11,
+      test:true,
       title: '测试脚本平台',
       // logo: '@/assets/weimob-logo.png'
 
