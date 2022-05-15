@@ -17,4 +17,13 @@ export function getList(params) {
 //   })
 // }
 
-export const getTest = (a)=>request({url:`/xiaoke-tool-platform/api/v1/test/returnAdd?a=${a}`,method:'get'});
+// export const getTest = (a)=>request({url:`/v1/test/returnAdd?a=${a}`,method:'get'});
+
+
+
+export function getTest(test) {
+  return request({
+    url: `/v1/test/returnAdd?a=${test}`,
+    method: 'get',
+  })
+}

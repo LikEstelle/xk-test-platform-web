@@ -36,15 +36,15 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
-    // proxy:{
-    //   '/xiaoke-tool-platform':{
-    //     target:'http://172.27.65.101:9900',
-    //     pathRewrite:{'^/xiaoke-tool-platform':''},
-    //     changeOrigin: true,
+    // before: require('./mock/mock-server.js'),
+    proxy:{
+      '/api':{
+        target:'http://tool.k8sv2.qa.internal.xiaoke.cn',
+        // pathRewrite:{'^/api':''},
+        changeOrigin: true,
 
-    //   }
-    // }
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
