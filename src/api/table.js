@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/vue-admin-template/table/list',
+    url: '/mock/table/list',
     method: 'get',
     params
   })
@@ -23,7 +23,7 @@ export function getList(params) {
 
 export function getTest(test) {
   return request({
-    url: `/v1/test/returnAdd?a=${test}`,
+    url: `/api/v1/test/returnAdd?a=${test}`,
     method: 'get',
   })
 }

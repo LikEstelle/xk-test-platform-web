@@ -35,6 +35,9 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+// import API from './api';
+// vue.prototype.$API=API;
+
 new Vue({
   el: '#app',
   router,

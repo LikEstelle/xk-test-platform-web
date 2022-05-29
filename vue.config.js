@@ -5,7 +5,7 @@ const defaultSettings = require('./src/settings.js')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-console.log('VUE_APP_BASE_API ==='+process.env.VUE_APP_BASE_API)
+// console.log('VUE_APP_BASE_API ==='+process.env.VUE_APP_BASE_API)
 
 
 const name = defaultSettings.title || 'vue Admin Template' // page title
@@ -40,7 +40,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    // before: require('./mock/mock-server.js'),
+    before: require('./mock/mock-server.js'),
     proxy:{
       '/api':{
         target:'http://tool.k8sv2.qa.internal.xiaoke.cn',
