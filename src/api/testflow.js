@@ -16,4 +16,13 @@ export function Testsuite(data) {
 }
 
 
+export function Testreport(data) {
+  return request({
+    url: '/mock/tf/history/report',
+    method: 'post',
+    data
+  })
+}
+
+
 // export const getTestsuitlist = ()=>request({url:'/mock/tf/testsuite/list',method:'get'});
