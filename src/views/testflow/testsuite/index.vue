@@ -12,7 +12,7 @@
     <el-table-column label="序号" width="150" type="index"> </el-table-column>
     <el-table-column label="脚本ID" prop="id"> </el-table-column>
     <el-table-column label="脚本描述" prop="description"> </el-table-column>
-    <el-table-column label="1_open_api  2_客资PC" prop="type">
+    <el-table-column label="脚本类型" prop="type">
     </el-table-column>
     <el-table-column align="right">
       <template slot="header" slot-scope="scope">
@@ -25,7 +25,7 @@
           @click="handleVisible(scope.row)"
           >执行</el-button
         >
-        <el-dialog :visible.sync="dialogFormVisible">
+        <el-dialog :visible.sync="dialogFormVisible" center>
           <el-form :model="form">
             <el-form-item
               label="自定义报告名称"
@@ -83,7 +83,18 @@ export default {
     async getPageList() {
       let result = await getTestsuitlist();
       if (result.code == 200) {
+        for (var i=0;i<result.data.length;i++){
+          var item = result.data[i];
+          if(item.type == 1){
+            item.type="OpenApi脚本"
+          }
+          if(item.type == 2){
+            item.type="客资PC脚本"
+          }
+        }
         this.tableData = result.data;
+        console.log(typeof this.tableData)
+
       }
     },
     async handleEdit(name) {
