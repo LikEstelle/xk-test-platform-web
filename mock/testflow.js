@@ -93,19 +93,47 @@ module.exports = [
         response: _ => {
             return{
                 code:200,
-                data:[{
-                    id:1,
-                    systemname:"系统拼接的名字",
-                    freename:"这个是我的报告",
-                    url:"www.bibi.com",
-                    createtime:"2017-05-10 23:52:19"
-                },{
-                    id:2,
-                    systemname:"系统拼接的名字2",
-                    freename:"这个是我的报告2",
-                    url:"www.bibi.com",
-                    createtime:"2017-05-10 23:52:19"
-                }]
+                data:{
+                    list:[
+                        {
+                            id:1,
+                            system_name:"系统拼接的名字",
+                            free_name:"这个是我的报告",
+                            url:"https://www.bilibili.com/",
+                            create_time:"2017-05-10 23:50:19",
+                            tag: "success",
+                        },{
+                            id:2,
+                            system_name:"系统拼接的名字2",
+                            free_name:"这个是我的报告2",
+                            url:"https://www.baidu.com",
+                            create_time:"2017-05-10 23:52:19",
+                            tag: "success",
+                        },{
+                            id:3,
+                            system_name:"系统拼接的名字2",
+                            free_name:"这个是我的报告2",
+                            url:"https://www.baidu.com",
+                            create_time:"2017-05-09 23:52:19",
+                            tag: "fail",
+                        },{
+                            id:4,
+                            system_name:"系统拼接的名字2",
+                            free_name:"这个是我的报告2",
+                            url:"https://www.baidu.com",
+                            create_time:"2017-05-08 23:52:19",
+                            tag: "success",
+                        },{
+                            id:5,
+                            system_name:"系统拼接的名字2",
+                            free_name:"这个是我的报告2",
+                            url:"https://www.baidu.com",
+                            create_time:"2017-04-10 23:52:19",
+                            tag: "fail",
+                        }
+                    ],
+                    total:90,
+                }
             }
         }
     }
