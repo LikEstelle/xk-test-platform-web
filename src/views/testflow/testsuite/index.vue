@@ -1,22 +1,19 @@
 <template>
   <el-table
-    :data="
-      tableData.filter(
-        (data) =>
-          !search ||
-          data.description.toLowerCase().includes(search.toLowerCase())
-      )
-    "
-    style="width: 98%"
+    :data="tableData.filter((data) =>!search || data.description.toLowerCase().includes(search.toLowerCase()))"
+    style="width: 100%"
   >
-    <el-table-column label="序号" width="150" type="index"> </el-table-column>
-    <el-table-column label="脚本ID" prop="id"> </el-table-column>
+    <!-- <el-table-column label="序号" width="150" type="index"> </el-table-column> -->
+    <el-table-column label="脚本ID" prop="id" width="100"> </el-table-column>
+    <el-table-column label="脚本名称" prop="name"> </el-table-column>
     <el-table-column label="脚本描述" prop="description"> </el-table-column>
+    <el-table-column label="代码" prop="code_info" width="300"> </el-table-column>
     <el-table-column label="脚本类型" prop="type">
     </el-table-column>
+    <el-table-column label="所属" prop="business_type" width="100"> </el-table-column>
     <el-table-column align="right">
       <template slot="header" slot-scope="scope">
-        <el-input v-model="search" size="medium" placeholder="输入关键字搜索" />
+        <el-input v-model="search" size="medium" placeholder="脚本描述关键字搜索" />
       </template>
       <template slot-scope="scope">
         <el-button
@@ -83,8 +80,8 @@ export default {
     async getPageList() {
       let result = await getTestsuitlist();
       if (result.code == 200) {
-        for (var i=0;i<result.data.length;i++){
-          var item = result.data[i];
+        for (var i=0;i<result.data.list.length;i++){
+          var item = result.data.list[i];
           if(item.type == 1){
             item.type="OpenApi脚本"
           }
@@ -92,15 +89,14 @@ export default {
             item.type="客资PC脚本"
           }
         }
-        this.tableData = result.data;
-        console.log(typeof this.tableData)
-
       }
+      this.tableData = result.data.list;
+      console.log(this.tableData)
     },
     async handleEdit(name) {
       const rowId= this.currentRow.id;
       var params = {
-        data: { test_id: rowId ,free_name:name},
+        test_id: rowId ,free_name:name
       };
       this.form.name=''
       let testsuite_result = await Testsuite(params);
@@ -108,7 +104,7 @@ export default {
       if (testsuite_result.code == 200) {
         this.open(rowId)
       }
-},
+    },
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">需求策划中</div>
+    <div class="dashboard-text">需求策划中3</div>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Dashboard',
+  name: 'card1',
   computed: {
     ...mapGetters([
       'name'

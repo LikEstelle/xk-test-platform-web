@@ -1,24 +1,32 @@
 import request from '@/utils/request'
 
-export function getTestsuitlist() {
+export function getTestsuitlist(data) {
   return request({
-    url: '/mock/tf/testsuite/list',
-    method: 'get',
+    url: '/script/testsuite/list',
+    method: 'post',
   })
 }
 
 export function Testsuite(data) {
   return request({
-    url: '/mock/tf/testsuite/run',
+    url: '/script/testsuite/run',
     method: 'post',
     data
   })
 }
 
 
+// export function Testreport(data) {
+//   return request({
+//     url: '/mock/tf/history/report',
+//     method: 'post',
+//     data
+//   })
+// }
+
 export function Testreport(data) {
   return request({
-    url: '/mock/tf/history/report',
+    url: '/script/history/report',
     method: 'post',
     data
   })

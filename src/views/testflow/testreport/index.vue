@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- <el-button @click="resetDateFilter">清除日期过滤器</el-button> -->
-    <el-button @click="clearFilter">重置</el-button>
+    <!-- <el-button @click="clearFilter">重置</el-button> -->
     <el-table ref="filterTable" :data="tableData" style="width: 100%" >
-      <el-table-column prop="id" label="报告ID" width="150"> </el-table-column>
+      <el-table-column prop="id" label="报告ID" width="70"> </el-table-column>
       <el-table-column
         prop="create_time"
         label="日期"
@@ -25,11 +25,15 @@
         prop="tag"
         label="标签"
         :filters="[
-          { text: 'success', value: 'success' },
-          { text: 'fail', value: 'fail' },
+          { text: '订单', value: '订单' },
+          { text: '销氪', value: '销氪' },
+          { text: '营销', value: '营销' },
+          { text: '寻客宝', value: '寻客宝' },
+          { text: '客资', value: '客资' },
         ]"
         :filter-method="filterTag"
         filter-placement="bottom-end"
+        width="90"
       >
         <template slot-scope="scope">
           <el-tag
@@ -39,8 +43,16 @@
           >
         </template>
       </el-table-column>
-      <el-table-column label="报告详情" prop="url" >
-        <template slot-scope="{row}">
+       <el-table-column prop="case_count" label="count" width="70">
+      </el-table-column>
+      <el-table-column prop="success_count" label="success" width="75">
+      </el-table-column>
+      <el-table-column prop="fail_count" label="fail" width="70">
+      </el-table-column>
+       <el-table-column prop="broken_count" label="broken" width="70">
+      </el-table-column>
+      <el-table-column label="报告详情" prop="url" width="100">
+        <template slot-scope="{row}" >
           <el-link :href="row.url" target="_blank" type="primary">report</el-link>
         </template>
       </el-table-column>
@@ -75,7 +87,7 @@ export default {
 
       },
       pageNum:1,
-      pageSize:3,
+      pageSize:10,
       total:80
 
     };
@@ -102,9 +114,12 @@ export default {
     //   return row[property] === value;
     // },
     async getPageList(){
-      const pageNum=this.pageNum
-      const pageSize=this.pageSize
-      let result = await Testreport(pageNum,pageSize);
+      // const page_number=this.pageNum
+      // const page_size=this.pageSize
+      var params = {
+        page_size: this.pageSize ,page_number:this.pageNum
+      };
+      let result = await Testreport(params);
       if (result.code == 200) {
         this.tableData = result.data.list;
         this.total = result.data.total;
@@ -117,7 +132,7 @@ export default {
 
     },
     handleCurrentChange(pageNum){
-      tthis.pageNum=pageNum
+      this.pageNum=pageNum
       this.getPageList()
     }
   },

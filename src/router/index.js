@@ -46,12 +46,12 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      path: 'home',
+      name: '首页',
+      component: () => import('@/views/home/index'),
+      meta: { title: '首页', icon: 'el-icon-s-home' }
     }]
   },
   {
@@ -65,99 +65,123 @@ export const constantRoutes = [
       path: 'testsuite',
       name: 'Testsuite',
       component: () => import('@/views/testflow/testsuite/index'),
-      meta: { title: '接口测试执行', icon: 'dashboard' }
+      meta: { title: '接口测试执行', icon: 'home' }
       },
       {
         path: 'testreport',
         name: 'Testreport',
         component: () => import('@/views/testflow/testreport/index'),
-        meta: { title: '接口测试报告', icon: 'dashboard' }
+        meta: { title: '接口测试报告', icon: 'home' }
         }
     ]
   },
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: 'Example',
+  //   meta: { title: '例子', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'table',
+  //       name: 'Table',
+  //       component: () => import('@/views/table/index'),
+  //       meta: { title: 'Table', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'tree',
+  //       name: 'Tree',
+  //       component: () => import('@/views/tree/index'),
+  //       meta: { title: 'Tree', icon: 'tree' }
+  //     },
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     },
+  //     {
+  //       path: 'menu1',
+  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
+  //       name: 'Menu1',
+  //       meta: { title: 'Menu1',icon: 'nested' },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           component: () => import('@/views/nested/menu1/menu1-1'),
+  //           name: 'Menu1-1',
+  //           meta: { title: 'Menu1-1' }
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           component: () => import('@/views/nested/menu1/menu1-2'),
+  //           name: 'Menu1-2',
+  //           meta: { title: 'Menu1-2' },
+  //           children: [
+  //             {
+  //               path: 'menu1-2-1',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+  //               name: 'Menu1-2-1',
+  //               meta: { title: 'Menu1-2-1' }
+  //             },
+  //             {
+  //               path: 'menu1-2-2',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+  //               name: 'Menu1-2-2',
+  //               meta: { title: 'Menu1-2-2' }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: 'menu1-3',
+  //           component: () => import('@/views/nested/menu1/menu1-3'),
+  //           name: 'Menu1-3',
+  //           meta: { title: 'Menu1-3' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       component: () => import('@/views/nested/menu2/index'),
+  //       name: 'Menu2',
+  //       meta: { title: 'menu2',icon: 'nested' }
+  //     }
+  //   ]
+  // },
+
+  // {
+  //   path: '/test',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'test',
+  //       name: 'test',
+  //       component: () => import('@/views/test/index'),
+  //       meta: { title: '测试', icon: 'form' }
+  //     }
+  //   ]
+  // },
   {
-    path: '/example',
+    path: '/create',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: '例子', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      },
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      },
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1',icon: 'nested' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2',icon: 'nested' }
+        path: 'create',
+        name: 'create',
+        component: () => import('@/views/create/index'),
+        meta: { title: '数据构造', icon: 'el-icon-s-shop'}
       }
     ]
   },
-
   {
-    path: '/test',
+    path: '/scene',
     component: Layout,
     children: [
       {
-        path: 'test',
-        name: 'test',
-        component: () => import('@/views/test/index'),
-        meta: { title: '测试', icon: 'form' }
+        path: 'scene',
+        name: 'scene',
+        component: () => import('@/views/scene/index'),
+        meta: { title: '场景构造', icon: 'form' }
       }
     ]
   },

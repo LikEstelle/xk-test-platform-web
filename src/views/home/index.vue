@@ -24,59 +24,59 @@
         :name="item.name"
       >
         <!-- {{ item.content }} -->
-        <test1 :is="item.content"></test1>
+        <a :is="item.content"></a>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
 // 引入组件
-import test1 from "./test1";
-import test2 from "./test2";
-import test3 from "./test3";
+import homeWindow from "./homeWindow";
+import test1Window from "./test1Window";
+import test2Window from "./test2Window";
 export default {
   data() {
     return {
       // 当前选中的组件
-      currentComp: "test1",
+      // currentComp: "homeWindow",
       // 当前选中的li标签
-      isActive: "1",
-      menu: [
-        {
-          // li标签的内容
-          name: "会员管理",
-          // 当前li标签是否选中的标识
-          value: "1",
-          // 点击当前li标签，要显示的组件
-          comp: "test1",
-        },
-        {
-          name: "场馆管理",
-          value: "2",
-          comp: "test2",
-        },
-        {
-          name: "品牌管理",
-          value: "3",
-          comp: "test3",
-        },
-      ],
-      editableTabsValue: "2",
+      // isActive: "1",
+      // menu: [
+      //   {
+      //     // li标签的内容
+      //     name: "会员管理",
+      //     // 当前li标签是否选中的标识
+      //     value: "1",
+      //     // 点击当前li标签，要显示的组件
+      //     comp: "homeWindow",
+      //   },
+      //   {
+      //     name: "场馆管理",
+      //     value: "2",
+      //     comp: "test1Window",
+      //   },
+      //   {
+      //     name: "品牌管理",
+      //     value: "3",
+      //     comp: "test2Window",
+      //   },
+      // ],
+      editableTabsValue: "1",
       editableTabs: [
         {
-          title: "Tab 1",
+          title: "我的主页",
           name: "1",
-          content: "test1",
+          content: "homeWindow",
         },
         {
           title: "Tab 2",
           name: "2",
-          content: "test2",
+          content: "test1Window",
         },
         {
           title: "Tab 3",
           name: "3",
-          content: "test3",
+          content: "test2Window",
         },
       ],
       tabIndex: 2,
@@ -84,9 +84,9 @@ export default {
   },
   // 注册组件
   components: {
-    test1,
-    test2,
-    test3,
+    homeWindow,
+    test1Window,
+    test2Window,
   },
 };
 </script>
@@ -117,7 +117,7 @@ export default {
     margin: 0;
   }
   .el-tabs__item{
-    width:100px;
+    width:200px;
     font-size:15px;
     text-align:center;
     margin:auto;

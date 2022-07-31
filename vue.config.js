@@ -40,7 +40,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+    // before: require('./mock/mock-server.js'),
     proxy:{
       '/api':{
         target:'http://tool.k8sv2.qa.internal.xiaoke.cn',
@@ -48,6 +48,10 @@ module.exports = {
         // pathRewrite:{'^/api':''},
 
 
+      },
+      '/script':{
+        target:'http://xiaoke-test-iterface.app.qa.internal.xiaoke.cn',
+        changeOrigin: true,
       }
     }
   },
