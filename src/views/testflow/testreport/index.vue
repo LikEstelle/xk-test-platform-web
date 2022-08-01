@@ -2,23 +2,26 @@
   <div>
     <!-- <el-button @click="resetDateFilter">清除日期过滤器</el-button> -->
     <!-- <el-button @click="clearFilter">重置</el-button> -->
-    <el-table ref="filterTable" :data="tableData" style="width: 100%" >
-      <el-table-column prop="id" label="报告ID" width="70"> </el-table-column>
+    <el-table ref="filterTable" :data="tableData" style="width: 100%" align=center>
+      <el-table-column prop="id" label="报告ID"  align=left min-width=40> </el-table-column>
       <el-table-column
         prop="create_time"
         label="日期"
         sortable
         column-key="create_time"
-      
+        align=left
+        min-width=100
       >
       </el-table-column>
-      <el-table-column prop="system_name" label="报告名称">
+      <el-table-column prop="system_name" label="报告名称" show-overflow-tooltip=true min-width=100>
       </el-table-column>
       <el-table-column
         prop="free_name"
         label="自定义报告名称"
         :formatter="formatter"
-       
+        align=left
+        show-overflow-tooltip=true
+        min-width=100
       >
       </el-table-column>
       <el-table-column
@@ -33,7 +36,7 @@
         ]"
         :filter-method="filterTag"
         filter-placement="bottom-end"
-        width="90"
+        align=left
       >
         <template slot-scope="scope">
           <el-tag
@@ -43,15 +46,15 @@
           >
         </template>
       </el-table-column>
-       <el-table-column prop="case_count" label="count" width="70">
+       <el-table-column prop="case_count" label="count" min-width=50>
       </el-table-column>
-      <el-table-column prop="success_count" label="success" width="75">
+      <el-table-column prop="success_count" label="success" min-width=50>
       </el-table-column>
-      <el-table-column prop="fail_count" label="fail" width="70">
+      <el-table-column prop="fail_count" label="fail" min-width=50>
       </el-table-column>
-       <el-table-column prop="broken_count" label="broken" width="70">
+       <el-table-column prop="broken_count" label="broken" min-width=50>
       </el-table-column>
-      <el-table-column label="报告详情" prop="url" width="100">
+      <el-table-column label="报告详情" prop="url" min-width=50>
         <template slot-scope="{row}" >
           <el-link :href="row.url" target="_blank" type="primary">report</el-link>
         </template>
