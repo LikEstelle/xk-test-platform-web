@@ -49,7 +49,7 @@ module.exports = {
 
 
       },
-      '/script':{
+      '/testflow':{
         target:'http://xiaoke-test-iterface.app.qa.internal.xiaoke.cn',
         changeOrigin: true,
       }

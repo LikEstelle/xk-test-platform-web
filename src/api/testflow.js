@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function getTestsuitlist(data) {
   return request({
-    url: '/script/testsuite/list',
+    url: '/testflow/script/testsuite/list',
     method: 'post',
   })
 }
 
 export function Testsuite(data) {
   return request({
-    url: '/script/testsuite/run',
+    url: '/testflow/script/testsuite/run',
     method: 'post',
     data
   })
@@ -26,7 +26,7 @@ export function Testsuite(data) {
 
 export function Testreport(data) {
   return request({
-    url: '/script/history/report',
+    url: '/testflow/script/history/report',
     method: 'post',
     data
   })
