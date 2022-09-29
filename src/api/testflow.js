@@ -32,5 +32,12 @@ export function Testreport(data) {
   })
 }
 
+export function ContrastData(data) {
+  return request({
+    url: '/testflow/tools/comparisons/',
+    method: 'post',
+    data
+  })
+}
 
 // export const getTestsuitlist = ()=>request({url:'/mock/tf/testsuite/list',method:'get'});

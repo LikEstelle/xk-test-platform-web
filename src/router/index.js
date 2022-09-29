@@ -162,6 +162,18 @@ export const constantRoutes = [
   //   ]
   // },
   {
+    path: '/datatest',
+    component: Layout,
+    children: [
+      {
+        path: 'datatest',
+        name: 'datatest',
+        component: () => import('@/views/datatest/index'),
+        meta: { title: '数据测试', icon: 'el-icon-s-shop'}
+      }
+    ]
+  },
+  {
     path: '/create',
     component: Layout,
     children: [
