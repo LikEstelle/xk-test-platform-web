@@ -40,4 +40,12 @@ export function ContrastData(data) {
   })
 }
 
+export function Test(data) {
+  return request({
+    url: '/testflow/tools/comparisons/',
+    method: 'post',
+    data
+  })
+}
+
 // export const getTestsuitlist = ()=>request({url:'/mock/tf/testsuite/list',method:'get'});

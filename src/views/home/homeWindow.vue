@@ -7,9 +7,9 @@
     >
       <div slot="header" class="clearfix">
         <span>{{ item.title }}</span>
-        <el-button style="float: right; padding: 3px 0" type="text"
+        <!-- <el-button style="float: right; padding: 3px 0" type="text"
           >更多</el-button
-        >
+        > -->
       </div>
       <div :is="item.type"></div>
     </el-card>

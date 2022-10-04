@@ -3,7 +3,7 @@
     <!-- <el-button @click="resetDateFilter">清除日期过滤器</el-button> -->
     <!-- <el-button @click="clearFilter">重置</el-button> -->
     <el-table ref="filterTable" :data="tableData" style="width: 100%" align=center>
-      <el-table-column prop="id" label="报告ID"  align=left min-width=40> </el-table-column>
+      <el-table-column prop="id" label="报告ID"  align=left min-width=100> </el-table-column>
       <el-table-column
         prop="create_time"
         label="日期"

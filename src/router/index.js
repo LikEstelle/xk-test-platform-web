@@ -162,13 +162,25 @@ export const constantRoutes = [
   //   ]
   // },
   {
-    path: '/datatest',
+    path: '/testflow/astrolabe',
+    component: Layout,
+    children: [
+      {
+        path: 'astrolabe',
+        name: 'astrolabe',
+        component: () => import('@/views/testflow/astrolabe/index'),
+        meta: { title: '日志排查', icon: 'el-icon-s-shop'}
+      }
+    ]
+  },
+  {
+    path: '/testflow/datatest',
     component: Layout,
     children: [
       {
         path: 'datatest',
         name: 'datatest',
-        component: () => import('@/views/datatest/index'),
+        component: () => import('@/views/testflow/datatest/index'),
         meta: { title: '数据测试', icon: 'el-icon-s-shop'}
       }
     ]

@@ -34,6 +34,7 @@ export default {
        items: [
         { text: '接口测试执行' ,describe:'客资，营销，寻客宝，订单常规接口&OpenAPI接口',icon:'card1-1',path:"#/testflow/testsuite"},
         { text: '接口测试报告' ,describe:'测试报告展示，接口异步执行',icon:'card1-2',path:"#/testflow/testreport"},
+        { text: '数据测试' ,describe:'数据报表数据对比',icon:'card1-2',path:"#/testflow/datatest/datatest"},
         { text: '数据构造' ,describe:'快速创建大量测试数据，增加测试效率',icon:'card1-3',path:"#/create/create"},
         { text: '场景构造' ,describe:'提供各种实际场景，提升测试覆盖率',icon:'card1-3',path:"#/scene/scene"}
       ]

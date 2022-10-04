@@ -4,7 +4,7 @@
     style="width: 100%"
   >
     <!-- <el-table-column label="序号" width="150" type="index"> </el-table-column> -->
-    <el-table-column label="脚本ID" prop="id" min-width=30> </el-table-column>
+    <!-- <el-table-column label="脚本ID" prop="id" min-width=30> </el-table-column> -->
     <el-table-column label="脚本名称" prop="name"> </el-table-column>
     <el-table-column label="脚本描述" prop="description" min-width=80> </el-table-column>
     <el-table-column label="代码" prop="code_info" min-width=150> </el-table-column>
