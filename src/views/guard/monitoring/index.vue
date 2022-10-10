@@ -59,8 +59,8 @@
                   <p v-else>
                     <el-link slot="reference" :underline="false">Sql: {{item.sql}}</el-link>
                   </p>
-                  <p v-if="item.sql_query==''"></p>
-                  <p v-else>SqlQuery: {{item.sql_query}}</p>
+                  <p v-if="item.sqlResult==''"></p>
+                  <p v-else>SqlQuery: {{item.sqlResult}}</p>
                   <p v-if="item.url==''"></p>
                   <p v-else>
                     <el-link :href="item.url" target="_blank" type="primary">微盟开发平台</el-link>
