@@ -42,7 +42,6 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -55,160 +54,117 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/measure',
+    component: Layout,
+    redirect: '/measure/versioniteration',
+    name:'Measure',
+    meta: { title: '质量度量', icon: 'el-icon-s-help' },
+    children: [
+      {
+      path: 'versioniteration',
+      name: 'VersionIteration',
+      component: () => import('@/views/measure/versioniteration/index'),
+      meta: { title: '版本迭代', icon: 'home' }
+      },
+      {
+        path: 'qualityreview',
+        name: 'QualityReview',
+        component: () => import('@/views/measure/qualityreview/index'),
+        meta: { title: '质量复盘', icon: 'home' }
+      },
+    ]
+  },
+  {
+    path: '/guard',
+    component: Layout,
+    redirect: '/guard/monitoring',
+    name:'Guard',
+    meta: { title: '质量哨兵', icon: 'el-icon-s-platform' },
+    children: [
+      {
+      path: 'monitoring',
+      name: 'Monitoring',
+      component: () => import('@/views/guard/monitoring/index'),
+      meta: { title: '异常监控', icon: 'home' }
+      },
+      {
+        path: 'lnspection',
+        name: 'Lnspection',
+        component: () => import('@/views/guard/lnspection/index'),
+        meta: { title: '生产巡检', icon: 'home' }
+      },
+    ]
+  },
+  {
     path: '/testflow',
     component: Layout,
     redirect: '/testflow/testsuite',
     name:'Testflow',
-    meta: { title: '接口测试', icon: 'el-icon-s-help' },
+    meta: { title: '质量工具', icon: 'el-icon-s-cooperation'},
     children: [
       {
       path: 'testsuite',
       name: 'Testsuite',
       component: () => import('@/views/testflow/testsuite/index'),
-      meta: { title: '接口测试执行', icon: 'home' }
+      meta: { title: '接口脚本', icon: 'home' }
       },
       {
         path: 'testreport',
         name: 'Testreport',
         component: () => import('@/views/testflow/testreport/index'),
-        meta: { title: '接口测试报告', icon: 'home' }
-        }
-    ]
-  },
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: '例子', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: 'Tree', icon: 'tree' }
-  //     },
-  //     {
-  //       path: 'index',
-  //       name: 'Form',
-  //       component: () => import('@/views/form/index'),
-  //       meta: { title: 'Form', icon: 'form' }
-  //     },
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: 'Menu1',icon: 'nested' },
-  //       children: [
-  //         {
-  //           path: 'menu1-1',
-  //           component: () => import('@/views/nested/menu1/menu1-1'),
-  //           name: 'Menu1-1',
-  //           meta: { title: 'Menu1-1' }
-  //         },
-  //         {
-  //           path: 'menu1-2',
-  //           component: () => import('@/views/nested/menu1/menu1-2'),
-  //           name: 'Menu1-2',
-  //           meta: { title: 'Menu1-2' },
-  //           children: [
-  //             {
-  //               path: 'menu1-2-1',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-  //               name: 'Menu1-2-1',
-  //               meta: { title: 'Menu1-2-1' }
-  //             },
-  //             {
-  //               path: 'menu1-2-2',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-  //               name: 'Menu1-2-2',
-  //               meta: { title: 'Menu1-2-2' }
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: 'menu1-3',
-  //           component: () => import('@/views/nested/menu1/menu1-3'),
-  //           name: 'Menu1-3',
-  //           meta: { title: 'Menu1-3' }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: 'menu2',icon: 'nested' }
-  //     }
-  //   ]
-  // },
-
-  // {
-  //   path: '/test',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'test',
-  //       name: 'test',
-  //       component: () => import('@/views/test/index'),
-  //       meta: { title: '测试', icon: 'form' }
-  //     }
-  //   ]
-  // },
-  {
-    path: '/testflow/astrolabe',
-    component: Layout,
-    children: [
-      {
-        path: 'astrolabe',
-        name: 'astrolabe',
-        component: () => import('@/views/testflow/astrolabe/index'),
-        meta: { title: '日志排查', icon: 'el-icon-s-shop'}
-      }
-    ]
-  },
-  {
-    path: '/testflow/datatest',
-    component: Layout,
-    children: [
+        meta: { title: '接口报告', icon: 'home' }
+      },
       {
         path: 'datatest',
-        name: 'datatest',
+        name: 'DataTest',
         component: () => import('@/views/testflow/datatest/index'),
-        meta: { title: '数据测试', icon: 'el-icon-s-shop'}
-      }
+        meta: { title: '数据对比', icon: 'home' }
+      },
     ]
   },
   {
-    path: '/create',
+    path: '/check',
     component: Layout,
+    redirect: '/check/interface',
+    name:'Check',
+    meta: { title: '质量检测', icon: 'el-icon-s-finance' },
     children: [
       {
-        path: 'create',
-        name: 'create',
-        component: () => import('@/views/create/index'),
-        meta: { title: '数据构造', icon: 'el-icon-s-shop'}
-      }
+      path: 'interface',
+      name: 'Interface',
+      component: () => import('@/views/check/interface/index'),
+      meta: { title: '接口自动化', icon: 'home' }
+      },
+      {
+        path: 'ui',
+        name: 'Ui',
+        component: () => import('@/views/check/ui/index'),
+        meta: { title: 'UI自动化', icon: 'home' }
+      },
     ]
   },
   {
-    path: '/scene',
+    path: '/manage',
     component: Layout,
+    redirect: '/manage/scheduling',
+    name:'Manage',
+    meta: { title: '质量管理', icon: 'el-icon-s-marketing' },
     children: [
       {
-        path: 'scene',
-        name: 'scene',
-        component: () => import('@/views/scene/index'),
-        meta: { title: '场景构造', icon: 'form' }
-      }
+      path: 'scheduling',
+      name: 'Scheduling',
+      component: () => import('@/views/manage/scheduling/index'),
+      meta: { title: '排期报表', icon: 'home' }
+      },
+      {
+        path: 'file',
+        name: 'File',
+        component: () => import('@/views/manage/file/index'),
+        meta: { title: '质量文档', icon: 'home' }
+      },
     ]
   },
+  
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

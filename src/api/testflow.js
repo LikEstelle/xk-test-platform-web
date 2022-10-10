@@ -48,4 +48,44 @@ export function Test(data) {
   })
 }
 
+
+// export function CaseModel(data) {
+//   return request({
+//     url: '/testflow/TestCase/Module?page_size=100',
+//     method: 'get',
+//     data
+//   })
+// }
+
+
+
+export function CaseModel(page_size) {
+  return request({
+    url: `/testflow/TestCase/Module?page_size=${page_size}`,
+    method: 'get',
+  })
+}
+
+// export function CaseModel(page_size) {
+//   return request({
+//     url: `/testflow/TestCase/Module?page_size=${page_size}`,
+//     method: 'get',
+//   })
+// }
+
+
+export function LogList(pid,phone,start_time,end_time) {
+  return request({
+    url: `/testflow/script/LogList/?pid=${pid}&phone=${phone}&StartTime=${start_time}&EndTime=${end_time}`,
+    method: 'get',
+  })
+}
+
+
+// export function LogList() {
+//   return request({
+//     url: `/testflow/script/LogList/`,
+//     method: 'get',
+//   })
+// }
 // export const getTestsuitlist = ()=>request({url:'/mock/tf/testsuite/list',method:'get'});

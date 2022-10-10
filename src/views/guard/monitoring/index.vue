@@ -235,9 +235,9 @@ export default {
     };
   },
   methods: {
-    async getLogList() {
+    async getLogList(pid,phone,start_time,end_time) {
       console.log(1)
-      let result = await LogList();
+      let result = await LogList(pid,phone,start_time,end_time);
       if (result.code == 200) {
         console.log(result)
         this.errors=result.data.list
@@ -246,13 +246,17 @@ export default {
       }
     },
     onSubmit() {
-      var params = {
-        pid: this.formData.pid,
-        phone: this.formData.phone,
-        env: this.formData.env,
-        time: this.formData.time,
-      };
-      this.getLogList()
+      // var params = {
+      //   pid: this.formData.pid,
+      //   phone: this.formData.phone,
+      //   env: this.formData.env,
+      //   time: this.formData.time,
+      // };
+      var pid=this.formData.pid;
+      var phone=this.formData.phone;
+      var start_time=this.formData.time[0];
+      var end_time=this.formData.time[1];
+      this.getLogList(pid,phone,start_time,end_time)
       console.log(params);
     },
     next() {

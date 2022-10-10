@@ -7,10 +7,12 @@
         <!-- <img class="logo-img" src="@/assets/weimob-logo.png"> -->
 
         <h1 v-else class="sidebar-title">{{ title }} </h1>
+        <!-- <p v-else class="sidebar-title">{{ title }}</p> -->
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
         <img v-if="test" src='@/assets/weimob-logo.png' class="sidebar-logo">
         <h1 class="sidebar-title">{{ title }} </h1>
+        <!-- <p class="sidebar-title">{{ title }}</p> -->
       </router-link>
     </transition>
   </div>
@@ -28,7 +30,7 @@ export default {
   data() {
     return {
       test:true,
-      title: '测试脚本平台',
+      title: '质量效能平台',
       // logo: '@/assets/weimob-logo.png'
 
       // logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
@@ -65,7 +67,7 @@ export default {
 
     & .sidebar-logo {
       width: 100px;
-      height: 60px;
+      height: 40px;
       vertical-align: middle;
       margin-right: 5px;
     }
