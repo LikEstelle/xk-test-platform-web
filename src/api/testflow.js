@@ -76,16 +76,10 @@ export function CaseModel(page_size) {
 
 export function LogList(pid,phone,start_time,end_time) {
   return request({
-    url: `/testflow/script/LogList/?pid=${pid}&phone=${phone}&StartTime=${start_time}&EndTime=${end_time}`,
+    url: `/testflow/script/LogList/?page_size=100&pid=${pid}&phone=${phone}&start_time=${start_time}&end_time=${end_time}`,
     method: 'get',
   })
 }
 
 
-// export function LogList() {
-//   return request({
-//     url: `/testflow/script/LogList/`,
-//     method: 'get',
-//   })
-// }
-// export const getTestsuitlist = ()=>request({url:'/mock/tf/testsuite/list',method:'get'});
+

@@ -50,47 +50,47 @@ export const constantRoutes = [
       path: 'home',
       name: '首页',
       component: () => import('@/views/home/index'),
-      meta: { title: '首页', icon: 'el-icon-s-home' }
+      meta: { title: '首页', icon: 'el-icon-s-home'}
     }]
   },
   {
-    path: '/measure',
+    path: '/testflow/measure',
     component: Layout,
-    redirect: '/measure/versioniteration',
+    redirect: '/testflow/measure/versioniteration',
     name:'Measure',
     meta: { title: '质量度量', icon: 'el-icon-s-help' },
     children: [
       {
       path: 'versioniteration',
       name: 'VersionIteration',
-      component: () => import('@/views/measure/versioniteration/index'),
+      component: () => import('@/views/testflow/measure/versioniteration/index'),
       meta: { title: '版本迭代', icon: 'home' }
       },
       {
         path: 'qualityreview',
         name: 'QualityReview',
-        component: () => import('@/views/measure/qualityreview/index'),
+        component: () => import('@/views/testflow/measure/qualityreview/index'),
         meta: { title: '质量复盘', icon: 'home' }
       },
     ]
   },
   {
-    path: '/guard',
+    path: '/testflow/guard',
     component: Layout,
-    redirect: '/guard/monitoring',
+    redirect: '/testflow/guard/monitoring',
     name:'Guard',
     meta: { title: '质量哨兵', icon: 'el-icon-s-platform' },
     children: [
       {
       path: 'monitoring',
       name: 'Monitoring',
-      component: () => import('@/views/guard/monitoring/index'),
+      component: () => import('@/views/testflow/guard/monitoring/index'),
       meta: { title: '异常监控', icon: 'home' }
       },
       {
         path: 'lnspection',
         name: 'Lnspection',
-        component: () => import('@/views/guard/lnspection/index'),
+        component: () => import('@/views/testflow/guard/lnspection/index'),
         meta: { title: '生产巡检', icon: 'home' }
       },
     ]
@@ -98,68 +98,62 @@ export const constantRoutes = [
   {
     path: '/testflow',
     component: Layout,
-    redirect: '/testflow/testsuite',
+    redirect: '/testflow/datatest',
     name:'Testflow',
     meta: { title: '质量工具', icon: 'el-icon-s-cooperation'},
     children: [
-      {
-      path: 'testsuite',
-      name: 'Testsuite',
-      component: () => import('@/views/testflow/testsuite/index'),
-      meta: { title: '接口脚本', icon: 'home' }
-      },
-      {
-        path: 'testreport',
-        name: 'Testreport',
-        component: () => import('@/views/testflow/testreport/index'),
-        meta: { title: '接口报告', icon: 'home' }
-      },
       {
         path: 'datatest',
         name: 'DataTest',
         component: () => import('@/views/testflow/datatest/index'),
         meta: { title: '数据对比', icon: 'home' }
       },
+      {
+        path: 'factory',
+        name: 'Factory',
+        component: () => import('@/views/testflow/factory/index'),
+        meta: { title: '数据工厂', icon: 'home' }
+      },
     ]
   },
   {
-    path: '/check',
+    path: '/testflow/check',
     component: Layout,
-    redirect: '/check/interface',
+    redirect: '/testflow/check/interface',
     name:'Check',
     meta: { title: '质量检测', icon: 'el-icon-s-finance' },
     children: [
       {
       path: 'interface',
       name: 'Interface',
-      component: () => import('@/views/check/interface/index'),
+      component: () => import('@/views/testflow/check/interface/index'),
       meta: { title: '接口自动化', icon: 'home' }
       },
       {
         path: 'ui',
         name: 'Ui',
-        component: () => import('@/views/check/ui/index'),
+        component: () => import('@/views/testflow/check/ui/index'),
         meta: { title: 'UI自动化', icon: 'home' }
       },
     ]
   },
   {
-    path: '/manage',
+    path: '/testflow/manage',
     component: Layout,
-    redirect: '/manage/scheduling',
+    redirect: '/testflow/manage/scheduling',
     name:'Manage',
     meta: { title: '质量管理', icon: 'el-icon-s-marketing' },
     children: [
       {
       path: 'scheduling',
       name: 'Scheduling',
-      component: () => import('@/views/manage/scheduling/index'),
+      component: () => import('@/views/testflow/manage/scheduling/index'),
       meta: { title: '排期报表', icon: 'home' }
       },
       {
         path: 'file',
         name: 'File',
-        component: () => import('@/views/manage/file/index'),
+        component: () => import('@/views/testflow/manage/file/index'),
         meta: { title: '质量文档', icon: 'home' }
       },
     ]

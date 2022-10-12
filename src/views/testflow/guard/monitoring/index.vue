@@ -100,7 +100,9 @@ export default {
       if (result.code == 200) {
         console.log(result)
         this.errors=result.data.list
-        if (result.data.list.length==0){
+        if (result.data.total==0){
+          this.openwarning()
+        }else{
           this.opensuccess()
         }
       }
@@ -108,8 +110,16 @@ export default {
     onSubmit() {
       var pid=this.formData.pid;
       var phone=this.formData.phone;
-      var start_time=this.formData.time[0];
-      var end_time=this.formData.time[1];
+      console.log(this.formData.time[0])
+      if (this.formData.time[0]==undefined){
+        console.log(123)
+        var start_time=''
+        var end_time=''
+
+      }else{
+        var start_time=this.formData.time[0];
+        var end_time=this.formData.time[1];
+      }
       this.getLogList(pid,phone,start_time,end_time)
     },
     next() {
@@ -119,10 +129,17 @@ export default {
       let dom = this.$refs.sqleditor;
       const a = dom.editor.setValue(sqlFormatter.format(dom.editor.getValue()));
     },
-    opensuccess() {
+    openwarning() {
         this.$message({
           showClose: true,
           message: '未匹配到数据!',
+          type: 'warning'
+        });
+    },
+    opensuccess() {
+        this.$message({
+          showClose: true,
+          message: '查询成功',
           type: 'success'
         });
     },
