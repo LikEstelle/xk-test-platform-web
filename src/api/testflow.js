@@ -81,5 +81,26 @@ export function LogList(pid,phone,start_time,end_time) {
   })
 }
 
+export function BuyPack(data) {
+  return request({
+    url: '/testflow/tools/pack/',
+    method: 'post',
+    data
+  })
+}
 
+export function BuyPlugin(data) {
+  return request({
+    url: '/testflow/tools/plugin/',
+    method: 'post',
+    data
+  })
+}
 
+export function BuyRights(data) {
+  return request({
+    url: '/testflow/tools/rights/',
+    method: 'post',
+    data
+  })
+}
