@@ -1,17 +1,17 @@
 <template>
   <div>
     <el-form ref="form" :model="sizeForm" label-width="100px" size="medium">
-      <el-form-item label="手机号">
-        <el-input v-model="sizeForm.phone"></el-input>
+      <el-form-item label="手机号" class="div_input">
+        <el-input v-model="sizeForm.phone" placeholder="请输入手机号" clearable=true></el-input>
       </el-form-item>
-      <el-form-item label="创建企业名称">
-        <el-input v-model="sizeForm.enterprise_name"></el-input>
+      <el-form-item label="创建企业名称" class="div_input">
+        <el-input v-model="sizeForm.enterprise_name" placeholder="请输入要创建的企业名称" clearable=true></el-input>
       </el-form-item>
-       <el-form-item label="用户姓名">
-        <el-input v-model="sizeForm.name"></el-input>
+       <el-form-item label="用户姓名" class="div_input">
+        <el-input v-model="sizeForm.name" placeholder="请输入创建的用户姓名" clearable=true></el-input>
       </el-form-item>
-      <el-form-item label="插件">
-        <el-select v-model="sizeForm.pack_id" placeholder="请选择活动区域">
+      <el-form-item label="套餐">
+        <el-select v-model="sizeForm.pack_id" placeholder="请选择套餐">
           <el-option
             v-for="(item,index) in pack"
             :key="item.index"
@@ -20,8 +20,8 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="套餐">
-        <el-select v-model="sizeForm.plugin_id" placeholder="请选择活动区域">
+      <el-form-item label="插件">
+        <el-select v-model="sizeForm.plugin_id" placeholder="请选择插件">
           <el-option
             v-for="(item,index) in plugin"
             :key="item.index"
@@ -152,19 +152,18 @@ export default {
       };
       let result = await BuyRights(params);
       if (result.code == 200) {
-        this.opensuccess()
-      }
-    },
-    opensuccess() {
         this.$message({
-          showClose: true,
-          message: '购买插件成功',
-          type: 'success'
-        });
+          message:result.data.msg,
+          type:'success'
+        })
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.div_input{
+  width:500px;
+}
 </style>

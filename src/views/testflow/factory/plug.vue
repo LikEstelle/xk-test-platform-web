@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-form ref="form" :model="sizeForm" label-width="80px" size="medium">
-      <el-form-item label="PID">
-        <el-input v-model="sizeForm.name"></el-input>
+      <el-form-item label="PID" class="div_input">
+        <el-input v-model="sizeForm.name" placeholder="请输入pid" clearable=true></el-input>
       </el-form-item>
       <el-form-item label="插件">
-        <el-select v-model="sizeForm.region" placeholder="请选择活动区域">
+        <el-select v-model="sizeForm.region" placeholder="请选插件">
           <el-option
             v-for="(item,index) in options"
             :key="item.index"
@@ -93,24 +93,23 @@ export default {
     },
     async Buy() {
       var params = {
-        pack_id:this.sizeForm.region,
+        plugin_id:this.sizeForm.region,
         pid:this.sizeForm.name,
       };
       let result = await BuyPlugin(params);
       if (result.code == 200) {
-        this.opensuccess()
-      }
-    },
-    opensuccess() {
         this.$message({
-          showClose: true,
-          message: '购买插件成功',
-          type: 'success'
-        });
+          message:result.data.msg,
+          type:'success'
+        })
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.div_input{
+  width:500px;
+}
 </style>

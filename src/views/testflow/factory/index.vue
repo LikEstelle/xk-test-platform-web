@@ -50,7 +50,7 @@ export default {
           content: "Plug",
         },
         {
-          title: "一键创建",
+          title: "一键创建企业及权限",
           name: "3",
           content: "Creation",
         },
