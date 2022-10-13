@@ -15,6 +15,8 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import JsonViewer from 'vue-json-viewer'
+import vueiInfinite from 'vue-infinite-scroll'
+
 
 
 /**
@@ -38,6 +40,8 @@ Vue.use(JsonViewer)
 
 
 Vue.config.productionTip = false
+Vue.use(vueiInfinite)
+
 
 // import API from './api';
 // vue.prototype.$API=API;
