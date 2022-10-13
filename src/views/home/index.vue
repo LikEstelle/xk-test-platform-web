@@ -32,7 +32,7 @@
 <script>
 // 引入组件
 import homeWindow from "./homeWindow";
-import test1Window from "./test1Window";
+import mobileManagement from "./mobileManagement";
 import test2Window from "./test2Window";
 export default {
   data() {
@@ -69,9 +69,9 @@ export default {
           content: "homeWindow",
         },
         {
-          title: "Tab 2",
+          title: "设备管理",
           name: "2",
-          content: "test1Window",
+          content: "mobileManagement",
         },
         {
           title: "Tab 3",
@@ -85,7 +85,7 @@ export default {
   // 注册组件
   components: {
     homeWindow,
-    test1Window,
+    mobileManagement,
     test2Window,
   },
 };
