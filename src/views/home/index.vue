@@ -64,7 +64,7 @@ export default {
       editableTabsValue: "1",
       editableTabs: [
         {
-          title: "我的主页",
+          title: "新人必备",
           name: "1",
           content: "homeWindow",
         },
