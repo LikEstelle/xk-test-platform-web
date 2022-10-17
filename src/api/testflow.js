@@ -73,7 +73,7 @@ export function CaseModel(page_size) {
 //   })
 // }
 
-
+// 日志排查接口
 export function LogList(pid,phone,start_time,end_time) {
   return request({
     url: `/testflow/script/LogList/?page_size=100&pid=${pid}&phone=${phone}&start_time=${start_time}&end_time=${end_time}`,
@@ -81,6 +81,7 @@ export function LogList(pid,phone,start_time,end_time) {
   })
 }
 
+// 套餐开通接口
 export function BuyPack(data) {
   return request({
     url: '/testflow/tools/pack/',
@@ -101,6 +102,30 @@ export function BuyRights(data) {
   return request({
     url: '/testflow/tools/rights/',
     method: 'post',
+    data
+  })
+}
+
+// 设备管理接口
+export function SourceManagementAll(page_size) {
+  return request({
+    url: `/testflow/tools/SourceManagement/?page_size=${page_size}`,
+    method: 'get',
+  })
+}
+
+
+export function SourceManagementID(ID) {
+  return request({
+    url: `/testflow/tools/SourceManagement/${ID}/`,
+    method: 'get',
+  })
+}
+
+export function PSourceManagementID(id,data) {
+  return request({
+    url: `/testflow/tools/SourceManagement/${id}/`,
+    method: 'patch',
     data
   })
 }
