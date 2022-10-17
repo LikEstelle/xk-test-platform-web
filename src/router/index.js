@@ -50,21 +50,21 @@ export const constantRoutes = [
       path: 'home',
       name: '首页',
       component: () => import('@/views/home/index'),
-      meta: { title: '首页', icon: 'el-icon-s-home'}
+      meta: { title: '首页', icon: 'el-icon-s-home' }
     }]
   },
   {
     path: '/testflow/measure',
     component: Layout,
     redirect: '/testflow/measure/versioniteration',
-    name:'Measure',
+    name: 'Measure',
     meta: { title: '质量度量', icon: 'el-icon-s-help' },
     children: [
       {
-      path: 'versioniteration',
-      name: 'VersionIteration',
-      component: () => import('@/views/testflow/measure/versioniteration/index'),
-      meta: { title: '版本迭代', icon: 'home' }
+        path: 'versioniteration',
+        name: 'VersionIteration',
+        component: () => import('@/views/testflow/measure/versioniteration/index'),
+        meta: { title: '版本迭代', icon: 'home' }
       },
       {
         path: 'qualityreview',
@@ -78,14 +78,14 @@ export const constantRoutes = [
     path: '/testflow/guard',
     component: Layout,
     redirect: '/testflow/guard/monitoring',
-    name:'Guard',
+    name: 'Guard',
     meta: { title: '质量哨兵', icon: 'el-icon-s-platform' },
     children: [
       {
-      path: 'monitoring',
-      name: 'Monitoring',
-      component: () => import('@/views/testflow/guard/monitoring/index'),
-      meta: { title: '异常监控', icon: 'home' }
+        path: 'monitoring',
+        name: 'Monitoring',
+        component: () => import('@/views/testflow/guard/monitoring/index'),
+        meta: { title: '异常监控', icon: 'home' }
       },
       {
         path: 'lnspection',
@@ -99,8 +99,8 @@ export const constantRoutes = [
     path: '/testflow',
     component: Layout,
     redirect: '/testflow/datatest',
-    name:'Testflow',
-    meta: { title: '质量工具', icon: 'el-icon-s-cooperation'},
+    name: 'Testflow',
+    meta: { title: '质量工具', icon: 'el-icon-s-cooperation' },
     children: [
       {
         path: 'datatest',
@@ -114,20 +114,27 @@ export const constantRoutes = [
         component: () => import('@/views/testflow/factory/index'),
         meta: { title: '数据工厂', icon: 'home' }
       },
+      {
+        path: 'clueconstruct',
+        name: 'CluesConstruct',
+        component: () => import('@/views/testflow/tools/cluesconstrcut/index'),
+        meta: { title: '线索构造', icon: 'el-icon-folder-add' }
+
+      }
     ]
   },
   {
     path: '/testflow/check',
     component: Layout,
     redirect: '/testflow/check/interface',
-    name:'Check',
+    name: 'Check',
     meta: { title: '质量检测', icon: 'el-icon-s-finance' },
     children: [
       {
-      path: 'interface',
-      name: 'Interface',
-      component: () => import('@/views/testflow/check/interface/index'),
-      meta: { title: '接口自动化', icon: 'home' }
+        path: 'interface',
+        name: 'Interface',
+        component: () => import('@/views/testflow/check/interface/index'),
+        meta: { title: '接口自动化', icon: 'home' }
       },
       {
         path: 'ui',
@@ -141,14 +148,14 @@ export const constantRoutes = [
     path: '/testflow/manage',
     component: Layout,
     redirect: '/testflow/manage/scheduling',
-    name:'Manage',
+    name: 'Manage',
     meta: { title: '质量管理', icon: 'el-icon-s-marketing' },
     children: [
       {
-      path: 'scheduling',
-      name: 'Scheduling',
-      component: () => import('@/views/testflow/manage/scheduling/index'),
-      meta: { title: '排期报表', icon: 'home' }
+        path: 'scheduling',
+        name: 'Scheduling',
+        component: () => import('@/views/testflow/manage/scheduling/index'),
+        meta: { title: '排期报表', icon: 'home' }
       },
       {
         path: 'file',
@@ -158,7 +165,7 @@ export const constantRoutes = [
       },
     ]
   },
-  
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
