@@ -2,7 +2,7 @@
 <template>
   <div class="index-bg">
     <el-row :gutter="20" >
-      <el-col :span="10">
+      <el-col :span="10" style="min-width:500px">
         <div class="form-container">
           <el-form ref="form" :model="form" :rules="rules" label-width="100px">
             <el-form-item label="起始手机号" prop="phone">
@@ -143,7 +143,7 @@
             </el-table-column>
             <el-table-column prop="isCreateCompany" label="创建企业" width="100" >
               <template v-slot='scope'>
-                <span>{{scope.row.isCreateCompany?'是':'否' || '-'}}</span>
+                <span>{{(scope.row.isCreateCompany==1)?'是':'否' || '-'}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="username" label="用户名" width="120" :show-overflow-tooltip='true'>
@@ -348,6 +348,7 @@ export default {
         if(this.isNeedStartPhone === 1){
           // 首次添加到构造线索池子/直接提交构造请求
           this.request_data['start_phone'] = formData['phone'];
+          this.rules.phone[0].required = false
         }  
         var clueChannel = {}
         clueChannel['entryMethod_id'] = formData['entryMethod'];
