@@ -5,13 +5,13 @@
   >
     <!-- <el-table-column label="序号" width="150" type="index"> </el-table-column> -->
     <!-- <el-table-column label="脚本ID" prop="id" min-width=30> </el-table-column> -->
-    <el-table-column label="用例集" prop="name"></el-table-column>
-    <el-table-column label="用例集类型" prop="description" min-width="80"></el-table-column>
+    <el-table-column label="测试计划" prop="name" min-width="100"></el-table-column>
+    <el-table-column label="计划类型" prop="description" min-width="100"></el-table-column>
     <el-table-column label="所属业务" prop="business_type" min-width="80"></el-table-column>
-    <el-table-column label="用例数量" prop="case_count" min-width="80"></el-table-column>
+    <el-table-column label="总用例数" prop="case_count" min-width="60"></el-table-column>
+    <el-table-column label="失败用例" prop="fail_count" min-width="60"></el-table-column>
+    <el-table-column label="执行时间" prop="last_run_time" min-width="100"></el-table-column>
     <el-table-column label="维护人" prop="owner" min-width="80"></el-table-column>
-    <el-table-column label="最近执行时间" prop="last_run_time" min-width="80"></el-table-column>
-    <el-table-column label="失败用例数" prop="fail_count" min-width="80"></el-table-column>
     <el-table-column label="报告详情" prop="report_detail" min-width="80">
       <template slot-scope="{row}">
         <el-link v-if="row.report_detail !==''" :href="row.report_detail" target="_blank" type="primary">report</el-link>
