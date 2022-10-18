@@ -34,6 +34,9 @@
 import homeWindow from "./homeWindow";
 import mobileManagement from "./mobileManagement";
 import test2Window from "./test2Window";
+import test3 from "./test3";
+import test4 from "./test4";
+
 export default {
   data() {
     return {
@@ -64,19 +67,24 @@ export default {
       editableTabsValue: "1",
       editableTabs: [
         {
-          title: "新人必备",
+          title: "质量事故",
           name: "1",
+          content: "test3",
+        },
+        {
+          title: "质量规范",
+          name: "2",
+          content: "test4",
+        },
+        {
+          title: "新人必备",
+          name: "3",
           content: "homeWindow",
         },
         {
           title: "设备管理",
-          name: "2",
+          name: "4",
           content: "mobileManagement",
-        },
-        {
-          title: "质量规范",
-          name: "3",
-          content: "test2Window",
         },
       ],
       tabIndex: 2,
@@ -87,6 +95,8 @@ export default {
     homeWindow,
     mobileManagement,
     test2Window,
+    test3,
+    test4
   },
 };
 </script>
