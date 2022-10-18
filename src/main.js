@@ -17,6 +17,9 @@ import '@/permission' // permission control
 import JsonViewer from 'vue-json-viewer'
 import vueiInfinite from 'vue-infinite-scroll'
 
+import axios from './http.js'
+import VueAxios from 'vue-axios'
+
 
 
 /**
@@ -41,6 +44,8 @@ Vue.use(JsonViewer)
 
 Vue.config.productionTip = false
 Vue.use(vueiInfinite)
+
+Vue.use(VueAxios, axios)
 
 
 // import API from './api';

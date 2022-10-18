@@ -2,24 +2,23 @@
 <template>
   <div class="index-bg">
     <el-row :gutter="20" >
-      
-      <el-col :span="8">
+      <el-col :span="10">
         <div class="form-container">
-          <el-form ref="form" :model="form" label-width="90px">
-            <el-form-item label="起始手机号">
+          <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+            <el-form-item label="起始手机号" prop="phone">
               <el-input v-model="form.phone"></el-input>
             </el-form-item>
-            <el-form-item label="录入方式">
+            <el-form-item label="录入方式" prop="entryMethod">
               <el-select v-model="form.entryMethod" placeholder="请选择录入方式" @change="get_channel(form.entryMethod)">
                 <el-option
-                  v-for="item in response"
+                  v-for="item in entryMethodOptions"
                   :key="item.id"
                   :label="item.entryMethod"
                   :value="item.id">
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="推广渠道">
+            <el-form-item label="推广渠道" prop="channel">
               <el-select v-model="form.channel" placeholder="请选择推广渠道">
                 <el-option
                   v-for="item in channelOptions"
@@ -29,28 +28,39 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="创建企业">
-              <el-radio-group v-model="form.isCreateCompany">
-                <el-radio :label="1">是</el-radio>
-                <el-radio :label="0">否</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="企业名称">
-              <el-input v-model="form.companyName"></el-input>
-            </el-form-item>
-            <el-form-item label="用户名">
-              <el-input v-model="form.username"></el-input>
-            </el-form-item>
-            <el-form-item label="地区">
-              <el-cascader
-                v-model="form.address"
-                :options="areaOptions"
-                :props="{ expandTrigger: 'hover' ,value:'areaCode', label:'areaName'}"
-                @change="handleChange"
-                filterable
-                placeholder="请选择企业所在地区">
-              </el-cascader>
-            </el-form-item>
+            <div v-if="form.channel ===31 || form.channel===32 ||form.channel===33">
+            </div>
+            <div v-else>
+              <el-form-item label="创建企业" prop="isCreateCompany">
+                <el-radio-group v-model="form.isCreateCompany">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </div>
+            <div v-if="form.isCreateCompany===1 ||form.channel ===31 ||form.channel === 32 || form.channel===33">
+              <el-form-item label="企业名称" prop="companyName">
+                <el-input v-model="form.companyName"></el-input>
+              </el-form-item>
+            </div>
+            <div v-if="form.isCreateCompany===1 ||form.channel === 31||form.channel===32">
+              <el-form-item label="用户名" prop="username">
+                <el-input v-model="form.username"></el-input>
+              </el-form-item>
+            </div>
+            <div v-if="form.isCreateCompany===1">
+              <el-form-item label="地区" prop="address">
+                <el-cascader
+                  v-model="form.address"
+                  :options="areaOptions"
+                  :props="{ expandTrigger: 'hover' ,value:'areaCode', label:'areaName'}"
+                  @change="handleChange"
+                  filterable
+                  placeholder="请选择企业所在地区">
+                </el-cascader>
+              </el-form-item>
+            </div>
+            
             <el-form-item>
               <el-button type="primary" @click="onSubmit">立即构造</el-button>
               <el-button @click="addClues">添加到待构造线索池</el-button>
@@ -59,12 +69,117 @@
         </div>
       </el-col>
       
-      <el-col :span="16"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="14">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span class="card_title">待构造线索池</span>
+            <span style="padding-left:30px;font-size:13px">起始手机号：{{this.request_data['start_phone']}}</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="batchSubmit">批量构造线索</el-button>
+          </div>
+          <el-table :data="tableData" style="width: 100%" max-height="440" >
+            <el-table-column prop="entryMethod" label="录入方式" width="100" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.entryMethod || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="channelName" label="推广渠道" width="100" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.channelName || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="isCreateCompany" label="创建企业" width="80" >
+              <template v-slot='scope'>
+                <span>{{scope.row.isCreateCompany || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="username" label="用户名" width="100" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.username || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="companyName" label="企业名" width="150" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.companyName || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="address" label="地区" width="150" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.address || '-'}}</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
     </el-row>
+    <div class="result_container" v-if="isShowResult">
+      <el-card class="box-card-result">
+          <div slot="header" class="clearfix-result">
+            <span class="card_title">线索构造结果</span>
+            <span style="padding-left:30px;font-size:13px"><font color='blue'>成功：{{this.success_count}}条</font></span>
+            <span style="padding-left:30px;font-size:13px;"><font color='red'>失败：{{this.fail_count}}条</font></span>
+            <!-- <el-button style="float: right; padding: 3px 0" type="text" @click="batchSubmit">批量构造线索</el-button> -->
+          </div>
+          <el-table :data="resultTableData" style="width: 100%" max-height="600" >
+            <el-table-column type="index" width="50"></el-table-column>
+            <el-table-column prop="phone" label="手机号" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.phone || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="entryMethod" label="录入方式" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.entryMethod || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="channelName" label="推广渠道" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.channelName || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="channel" label="渠道标识" width="80" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.channel || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="isCreateCompany" label="创建企业" width="100" >
+              <template v-slot='scope'>
+                <span>{{scope.row.isCreateCompany?'是':'否' || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="username" label="用户名" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.username || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="companyName" label="企业名" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.companyName || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="address" label="地区" width="150" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.address || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="isSuccess" label="状态" width="80" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <el-tag v-if="scope.row.isSuccess==1||scope.row.isSuccess=='1'">成功</el-tag>
+                <el-tag v-else type="danger">失败</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="failReason" label="失败原因" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.failReason || '-'}}</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+    </div>
   </div>
 </template>
 <script >
 import {areaMap} from '@/store/areaMap'
+import clueApi from '@/api/toolClueConstruct'
 export default {
     data() {
       return{
@@ -77,335 +192,249 @@ export default {
           username: '',
           address: []
         },
-        entryMethodOptions:[{
-          value:12,
-          label:'黄金糕'
-        },
-        {
-          value:13,
-          label:'双皮奶'
-        }],
-        channelOptions:[
-          {
-          value:15,
-          label:'hahaha'
-        },
-        {
-          value:16,
-          label:'hehehe'
-        }
-        ],
+        entryMethodOptions:[],
+        channelOptions:[],
         areaOptions:areaMap,
-        response:[
-        {
-            "id": 1,
-            "entryMethod": "应用市场",
-            "childrenChannel": [
-                {
-                    "channelId": 1,
-                    "channelName": "小米",
-                    "channel": "xiaomi",
-                    "channelCode": "10074",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 2,
-                    "channelName": "官网app",
-                    "channel": "bendi",
-                    "channelCode": "10052",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 3,
-                    "channelName": "华为",
-                    "channel": "huawei",
-                    "channelCode": "10060",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 4,
-                    "channelName": "应用宝cpd",
-                    "channel": "yybcpd",
-                    "channelCode": "10068",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 5,
-                    "channelName": "应用宝",
-                    "channel": "yyb",
-                    "channelCode": "10068",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 6,
-                    "channelName": "百度手机助手",
-                    "channel": "baidusz",
-                    "channelCode": "10072",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 7,
-                    "channelName": "360手机助手",
-                    "channel": "qihusz",
-                    "channelCode": "10052",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 8,
-                    "channelName": "oppo",
-                    "channel": "oppo",
-                    "channelCode": "10056",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 9,
-                    "channelName": "vivo",
-                    "channel": "vivo",
-                    "channelCode": "10058",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 10,
-                    "channelName": "魅族",
-                    "channel": "meizu",
-                    "channelCode": "10076",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 11,
-                    "channelName": "阿里应用商店",
-                    "channel": "ali",
-                    "channelCode": "10078",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 12,
-                    "channelName": "IOS",
-                    "channel": "_default_",
-                    "channelCode": "10080",
-                    "owning": "app"
-                }
-            ]
+        request_data:{
+          start_phone:'',
+          clueChannelList:[],
         },
-        {
-            "id": 2,
-            "entryMethod": "信息流",
-            "childrenChannel": [
-                {
-                    "channelId": 13,
-                    "channelName": "头条fb",
-                    "channel": "toutiaofb",
-                    "channelCode": "10062",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 14,
-                    "channelName": "头条1",
-                    "channel": "ttxxl1",
-                    "channelCode": "10062",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 15,
-                    "channelName": "头条2",
-                    "channel": "ttxxl2",
-                    "channelCode": "10062",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 16,
-                    "channelName": "头条代理商专用",
-                    "channel": "ttdls",
-                    "channelCode": "10088",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 17,
-                    "channelName": "百度fb",
-                    "channel": "baidufb",
-                    "channelCode": "10066",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 18,
-                    "channelName": "百度1",
-                    "channel": "bdxxl1",
-                    "channelCode": "10066",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 19,
-                    "channelName": "百度2",
-                    "channel": "bdxxl2",
-                    "channelCode": "10066",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 20,
-                    "channelName": "百度3",
-                    "channel": "bdxxl3",
-                    "channelCode": "10066",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 21,
-                    "channelName": "百度4",
-                    "channel": "bdxxl4",
-                    "channelCode": "10066",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 22,
-                    "channelName": "百度5",
-                    "channel": "bdxxl5",
-                    "channelCode": "10066",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 23,
-                    "channelName": "微信mp1",
-                    "channel": "wxmp1",
-                    "channelCode": "10082",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 24,
-                    "channelName": "微信mp2",
-                    "channel": "wxmp2",
-                    "channelCode": "10082",
-                    "owning": "app"
-                },
-                {
-                    "channelId": 25,
-                    "channelName": "广点通",
-                    "channel": "gdtfb",
-                    "channelCode": "10064",
-                    "owning": "app"
-                }
-            ]
+        isNeedStartPhone:1,
+        response_data:{},
+        rules: {
+          phone: [
+            { required: true, message: '请输入起始手机号', trigger: 'blur' },
+            { pattern:/^1[3456789]\d{9}$/, message: '请输入正确的11位手机号码', trigger: 'blur' }
+          ],
+          entryMethod: [
+            { required: true, message: '请选择录入方式', trigger: 'blur' }
+          ],
+          channel: [
+            { required: true, message: '请选择推广渠道', trigger: 'blur' }
+          ],
+          companyName: [
+            {  required: true, message: '请输入公司名称', trigger: 'blur' }
+          ],
+          username: [
+            { required: true, message: '请输入联系人姓名', trigger: 'blur' }
+          ],
+          isCreateCompany: [
+            { required: true, message: '请选择是否创建企业', trigger: 'change' }
+          ],
+          address:[
+            {required:true,message:'请选择地区',trigger:'change'}
+          ]
         },
-        {
-            "id": 3,
-            "entryMethod": "官网注册",
-            "childrenChannel": [
-                {
-                    "channelId": 26,
-                    "channelName": "官网注册",
-                    "channel": "registerForWebsite",
-                    "channelCode": "10051",
-                    "owning": "pc"
-                },
-                {
-                    "channelId": 27,
-                    "channelName": "寻客宝创建（注：自动创建企业）",
-                    "channel": "createForXkb",
-                    "channelCode": "10103",
-                    "owning": "pc"
-                }
-            ]
-        },
-        {
-            "id": 4,
-            "entryMethod": "京东云",
-            "childrenChannel": [
-                {
-                    "channelId": 28,
-                    "channelName": "京东云",
-                    "channel": "JDCloud",
-                    "channelCode": "10099",
-                    "owning": "pc"
-                }
-            ]
-        },
-        {
-            "id": 5,
-            "entryMethod": "活动",
-            "childrenChannel": [
-                {
-                    "channelId": 30,
-                    "channelName": "邀请裂变",
-                    "channel": "invite_fission",
-                    "channelCode": "10105",
-                    "owning": "pc"
-                }
-            ]
-        },
-        {
-            "id": 6,
-            "entryMethod": "其他",
-            "childrenChannel": [
-                {
-                    "channelId": 29,
-                    "channelName": "企业创建/未创建",
-                    "channel": "other",
-                    "channelCode": "10097",
-                    "owning": "pc"
-                }
-            ]
-        },
-        {
-            "id": 7,
-            "entryMethod": "pc端官网cpa表单",
-            "childrenChannel": [
-                {
-                    "channelId": 31,
-                    "channelName": "官网cpa表单",
-                    "channel": "",
-                    "channelCode": "1",
-                    "owning": "pc"
-                }
-            ]
-        },
-        {
-            "id": 8,
-            "entryMethod": "h5端官网cpa表单",
-            "childrenChannel": [
-                {
-                    "channelId": 32,
-                    "channelName": "官网cpa表单",
-                    "channel": "",
-                    "channelCode": "2",
-                    "owning": "app"
-                }
-            ]
-        },
-        {
-            "id": 9,
-            "entryMethod": "官网数据开放平台表单",
-            "childrenChannel": [
-                {
-                    "channelId": 33,
-                    "channelName": "官网数据开放平台表单",
-                    "channel": "",
-                    "channelCode": "3",
-                    "owning": "pc"
-                }
-            ]
-        }
-    ],
+        tableData:[],
+        isShowResult:false,
+        success_count:0,
+        fail_count:0,
+        resultTableData:[],
     }},
     props:[],
     components: {
     },
     created() {
     },
-    mounted() {
-    },
     methods:{
       onSubmit() {
         console.log('submit!');
         console.log(this.form);
-        this.get_entryMethod();
+        this.isNeedStartPhone = 1;
+        this.request_data = {
+          start_phone:'',
+          clueChannelList:[],
+        };
+        console.log('request_data',this.request_data);
+        this.formatRequestData(this.form);
+        this.submitClueConstruct(this.request_data);
+        this.form = {
+          phone: '',
+          entryMethod: '',
+          channel:'',
+          isCreateCompany: '',
+          companyName: '',
+          username: '',
+          address: []
+        };
+        // 调用请求执行线索构造任务接口，每次执行完，清空构造线索池，即this.request_data以及缓存
+      },
+      batchSubmit(){
+        console.log('batch submit!');
+        console.log('request_data',this.request_data);
+        this.submitClueConstruct(this.request_data);
+        // this.request_data
+        // 调用请求执行线索构造任务接口，每次执行完，清空构造线索池，即this.request_data以及缓存
+      },
+      addClues(){
+        var params = JSON.parse(sessionStorage.getItem('requestData'))
+        console.log('parmas',params);
+        if(params === null){
+          // 缓存为空，首次添加线索
+          this.isNeedStartPhone = 1;
+        }else{
+          // 缓存不为空，但起始手机号字段为空，添加进起始手机号
+          if(params.start_phone === ''){
+            this.isNeedStartPhone =1;
+          }else{
+            this.isNeedStartPhone =0;
+          }
+          // 缓存不为空，将缓存的值给request_data
+          this.request_data = params
+        }
+        console.log('isNeedStartPhone',this.isNeedStartPhone);
+        this.formatRequestData(this.form);
+        // console.log(this.form);
+        // console.log(this.tableData);
+        // console.log(this.channelOptions);
+        var tableI = {
+          username: this.form.username,
+          companyName:this.form.companyName,
+          isCreateCompany:this.form.isCreateCompany?'是':'否',
+          entryMethod:this.entryMethodOptions[this.form.entryMethod-1].entryMethod
+        }
+        for(var i=0; i<this.channelOptions.length;i++){
+          if(this.form.channel=== this.channelOptions[i].channelId){
+            tableI['channelName'] = this.channelOptions[i].channelName
+          }
+        }
+        if(this.form.address.length!==0){
+          var province
+          var city
+          var area
+          var province_id = this.form.address[0];
+          var city_id = this.form.address[1];
+          var area_id = this.form.address[2];
+          areaMap.forEach( function (item, index, areaMap) {
+            console.log(item);
+            if(item.areaCode == province_id){
+              province = item.areaName;
+              console.log(province);
+              let cityMap = item.children;
+              cityMap.forEach(function(citem,cindex,cityMap){
+                if(citem.areaCode == city_id){
+                  city = citem.areaName;
+                  let aMap = citem.children;
+                  aMap.forEach(function(aitem,aindex,aMap){
+                    if(aitem.areaCode == area_id){
+                      area = aitem.areaName;
+                    }
+                  })
+                }
+              })
+            }
+          } )
+          tableI['address'] = province+'/'+city+'/'+area    
+        }else{
+          tableI['address'] = ''
+        }
+        this.tableData.push(tableI);
+        this.form = {
+          phone: '',
+          entryMethod: '',
+          channel:'',
+          isCreateCompany: '',
+          companyName: '',
+          username: '',
+          address: []
+        };
+        sessionStorage.setItem('requestData',JSON.stringify(this.request_data));
+        console.log('缓存内的requestData',JSON.parse(sessionStorage.getItem('requestData')));
+        console.log('this.request_data',this.request_data);
+
+        // this.request_data = this.request_data_null;
+      },
+      formatRequestData(formData){
+        if(this.isNeedStartPhone === 1){
+          // 首次添加到构造线索池子/直接提交构造请求
+          this.request_data['start_phone'] = formData['phone'];
+        }  
+        var clueChannel = {}
+        clueChannel['entryMethod_id'] = formData['entryMethod'];
+        clueChannel['channelId'] = formData['channel'];
+        clueChannel['isCreateCompany'] = formData['isCreateCompany'];
+        clueChannel['companyName'] = formData['companyName'];
+        clueChannel['username'] = formData['username'];
+        console.log(formData.address.length);
+        if(formData.address.length!==0){
+          var address = {}
+          address['province'] = formData.address[0];
+          address['city'] = formData.address[1];
+          address['area'] = formData.address[2];
+          clueChannel['address'] = address;
+        }
+        
+        this.request_data['clueChannelList'].push(clueChannel);
+        console.log(this.request_data);
       },
       get_channel(entryMethodId){
         var i = entryMethodId - 1
-        this.channelOptions = this.response[i].childrenChannel
+        this.channelOptions = this.entryMethodOptions[i].childrenChannel
         this.form.channel = ''
       },
       get_clue_channel(){
+        // console.log('mounted调用接口');
+        var headers = {
+          Authorization: 'Token be37aa38a1d4c178ab1177670a22fd36c2ed38da'
+        }
+        var params = {}
         // 调接口获取clue——channel
+        clueApi.getClueChannel(headers,params).then(
+          resp =>{
+            let{code,msg,data} = resp;
+            if(code==='0'){
+              data.pop();
+              this.entryMethodOptions = data;
+            }else{
+              this.$message.error({
+                                message:msg,
+                                center:true
+                            });
+            }
+          }
+        )
+      },
+      submitClueConstruct(requestData){
+        console.log('submit clue construct');
+        var headers = {
+          Authorization: 'Token be37aa38a1d4c178ab1177670a22fd36c2ed38da'
+        }
+        var params = requestData
+        clueApi.postClueConstruct(headers,params).then(
+          resp =>{
+            let{code,msg,data} = resp;
+            if(code==='0'){
+              this.success_count = data['success_count'];
+              this.fail_count = data['fail_count'];
+              this.resultTableData = data['clueList'];
+              this.isShowResult = true;
+              this.$message.success({
+                                message:msg,
+                                center:true
+                            });
+              this.response_data = data;
+            }else{
+              this.$message.error({
+                                message:msg,
+                                center:true
+                            });
+            }
+            // 待构造线索池置空
+            this.request_data = {
+                start_phone:'',
+                clueChannelList:[],
+              };
+              // 待构造线索池展示的数据置空
+            this.tableData = [];
+            // 缓存的待构造线索池置空
+            sessionStorage.setItem('requestData',JSON.stringify(this.request_data));
+          }
+        )
       }
-    }
+    },
+    mounted() {
+      this.get_clue_channel();
+    },
   };
 </script>
 <style lang='scss'>
@@ -416,6 +445,9 @@ export default {
     height: 100%;
     padding: 20px;
     border-radius: 5px;
+  }
+  .card_title{
+    font-weight: 600;
   }
 }
   .bg-purple {

@@ -24,6 +24,7 @@
     "path-to-regexp": "2.4.0",
     "sql-formatter": "^2.3.3",
     "vue": "2.6.10",
+    "vue-axios": "^3.5.0",
     "vue-codemirror": "^6.1.1",
     "vue-infinite-scroll": "^2.0.2",
     "vue-json-viewer": "^2.2.22",
