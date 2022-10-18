@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
-export function getTestsuitlist(data) {
-  return request({
-    url: '/testflow/script/testsuite/list',
-    method: 'post',
-  })
-}
+// export function getTestsuitlist(data) {
+//   return request({
+//     url: '/testflow/script/testsuite/list',
+//     method: 'post',
+//   })
+// }
 
 export function Testsuite(data) {
   return request({
@@ -127,5 +127,22 @@ export function PSourceManagementID(id,data) {
     url: `/testflow/tools/SourceManagement/${id}/`,
     method: 'patch',
     data
+  })
+}
+
+
+export function Pagetime(data) {
+  return request({
+    url: '/testflow/tools/pagetime/',
+    method: 'post',
+    data
+  })
+}
+
+
+export function Scrip(type) {
+  return request({
+    url: `/testflow/script/Scrip/?type=${type}`,
+    method: 'get',
   })
 }

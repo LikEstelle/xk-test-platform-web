@@ -74,7 +74,7 @@ export default {
           content: "mobileManagement",
         },
         {
-          title: "Tab 3",
+          title: "质量规范",
           name: "3",
           content: "test2Window",
         },

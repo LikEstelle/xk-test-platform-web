@@ -6,13 +6,15 @@
     <!-- <el-table-column label="序号" width="150" type="index"> </el-table-column> -->
     <!-- <el-table-column label="脚本ID" prop="id" min-width=30> </el-table-column> -->
     <el-table-column label="用例集" prop="name"></el-table-column>
+    <el-table-column label="用例集类型" prop="description" min-width="80"></el-table-column>
     <el-table-column label="所属业务" prop="business_type" min-width="80"></el-table-column>
-    <el-table-column label="用例数量" prop="description" min-width="80"></el-table-column>
-    <el-table-column label="维护人" prop="code_info" min-width="150"></el-table-column>
-    <el-table-column label="最近执行时间" prop="type" min-width="80"></el-table-column>
-    <el-table-column label="报告详情" prop="url" min-width="50">
+    <el-table-column label="用例数量" prop="case_count" min-width="80"></el-table-column>
+    <el-table-column label="维护人" prop="owner" min-width="80"></el-table-column>
+    <el-table-column label="最近执行时间" prop="last_run_time" min-width="80"></el-table-column>
+    <el-table-column label="失败用例数" prop="fail_count" min-width="80"></el-table-column>
+    <el-table-column label="报告详情" prop="report_detail" min-width="80">
       <template slot-scope="{row}">
-        <el-link :href="row.url" target="_blank" type="primary">report</el-link>
+        <el-link v-if="row.report_detail !==''" :href="row.report_detail" target="_blank" type="primary">report</el-link>
       </template>
     </el-table-column>
     <el-table-column align="right">
@@ -52,7 +54,7 @@
 
 
 <script>
-import { getTestsuitlist, Testsuite } from "@/api/testflow";
+import { getTestsuitlist, Testsuite,Scrip } from "@/api/testflow";
 
 export default {
   data() {
@@ -78,30 +80,33 @@ export default {
       });
     },
     handleVisible(row) {
-      this.dialogFormVisible = true;
+      // this.dialogFormVisible = true;
       this.currentRow = row;
+      this.handleEdit()
     },
     async getPageList() {
-      let result = await getTestsuitlist();
+      var type=1
+      let result = await Scrip(type);
+      
       if (result.code == 200) {
-        for (var i = 0; i < result.data.list.length; i++) {
-          var item = result.data.list[i];
-          if (item.type == 1) {
-            item.type = "OpenApi脚本";
-          }
-          if (item.type == 2) {
-            item.type = "客资PC脚本";
-          }
-        }
+        // for (var i = 0; i < result.data.list.length; i++) {
+        //   var item = result.data.list[i];
+        //   if (item.type == 1) {
+        //     item.type = "OpenApi脚本";
+        //   }
+        //   if (item.type == 2) {
+        //     item.type = "客资PC脚本";
+        //   }
+        // }
       }
       this.tableData = result.data.list;
       console.log(this.tableData);
     },
-    async handleEdit(name) {
+    async handleEdit() {
       const rowId = this.currentRow.id;
       var params = {
         test_id: rowId,
-        free_name: name,
+        // free_name: name,
       };
       this.form.name = "";
       let testsuite_result = await Testsuite(params);

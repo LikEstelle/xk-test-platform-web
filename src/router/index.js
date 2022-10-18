@@ -93,6 +93,12 @@ export const constantRoutes = [
         component: () => import('@/views/testflow/guard/lnspection/index'),
         meta: { title: '生产巡检', icon: 'home' }
       },
+      {
+        path: 'weburl',
+        name: 'WebUrl',
+        component: () => import('@/views/testflow/guard/weburl/index'),
+        meta: { title: 'web响应时间', icon: 'home' }
+      },
     ]
   },
   {
