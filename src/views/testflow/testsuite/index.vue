@@ -9,6 +9,7 @@
     <el-table-column label="所属业务" prop="business_type" min-width="80"></el-table-column>
     <el-table-column label="用例数量" prop="description" min-width="80"></el-table-column>
     <el-table-column label="维护人" prop="code_info" min-width="150"></el-table-column>
+    <el-table-column label="y" prop="description" min-width="150"></el-table-column>
     <el-table-column label="最近执行时间" prop="type" min-width="80"></el-table-column>
     <el-table-column label="报告详情" prop="url" min-width="50">
       <template slot-scope="{row}">
@@ -52,7 +53,7 @@
 
 
 <script>
-import { getTestsuitlist, Testsuite } from "@/api/testflow";
+import {Testsuite ,Scrip} from "@/api/testflow";
 
 export default {
   data() {
@@ -82,17 +83,18 @@ export default {
       this.currentRow = row;
     },
     async getPageList() {
-      let result = await getTestsuitlist();
+      var type=2
+      let result = await Scrip(type);
       if (result.code == 200) {
-        for (var i = 0; i < result.data.list.length; i++) {
-          var item = result.data.list[i];
-          if (item.type == 1) {
-            item.type = "OpenApi脚本";
-          }
-          if (item.type == 2) {
-            item.type = "客资PC脚本";
-          }
-        }
+        // for (var i = 0; i < result.data.list.length; i++) {
+        //   var item = result.data.list[i];
+        //   if (item.type == 1) {
+        //     item.type = "OpenApi脚本";
+        //   }
+        //   if (item.type == 2) {
+        //     item.type = "客资PC脚本";
+        //   }
+        // }
       }
       this.tableData = result.data.list;
       console.log(this.tableData);
