@@ -67,19 +67,14 @@ export default {
       editableTabsValue: "1",
       editableTabs: [
         {
-          title: "质量事故",
+          title: "新人必备",
           name: "1",
-          content: "test3",
+          content: "homeWindow",
         },
         {
           title: "质量规范",
-          name: "2",
-          content: "test4",
-        },
-        {
-          title: "新人必备",
           name: "3",
-          content: "homeWindow",
+          content: "test3",
         },
         {
           title: "设备管理",
