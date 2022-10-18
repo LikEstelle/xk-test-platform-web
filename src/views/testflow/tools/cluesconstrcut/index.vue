@@ -2,7 +2,6 @@
 <template>
   <div class="index-bg">
     <el-row :gutter="20" >
-      
       <el-col :span="10">
         <div class="form-container">
           <el-form ref="form" :model="form" :rules="rules" label-width="100px">
@@ -112,6 +111,70 @@
         </el-card>
       </el-col>
     </el-row>
+    <div class="result_container" v-if="isShowResult">
+      <el-card class="box-card-result">
+          <div slot="header" class="clearfix-result">
+            <span class="card_title">线索构造结果</span>
+            <span style="padding-left:30px;font-size:13px"><font color='blue'>成功：{{this.success_count}}条</font></span>
+            <span style="padding-left:30px;font-size:13px;"><font color='red'>失败：{{this.fail_count}}条</font></span>
+            <!-- <el-button style="float: right; padding: 3px 0" type="text" @click="batchSubmit">批量构造线索</el-button> -->
+          </div>
+          <el-table :data="resultTableData" style="width: 100%" max-height="600" >
+            <el-table-column type="index" width="50"></el-table-column>
+            <el-table-column prop="phone" label="手机号" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.phone || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="entryMethod" label="录入方式" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.entryMethod || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="channelName" label="推广渠道" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.channelName || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="channel" label="渠道标识" width="80" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.channel || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="isCreateCompany" label="创建企业" width="100" >
+              <template v-slot='scope'>
+                <span>{{scope.row.isCreateCompany?'是':'否' || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="username" label="用户名" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.username || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="companyName" label="企业名" width="120" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.companyName || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="address" label="地区" width="150" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.address || '-'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="isSuccess" label="状态" width="80" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <el-tag v-if="scope.row.isSuccess==1||scope.row.isSuccess=='1'">成功</el-tag>
+                <el-tag v-else type="danger">失败</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="failReason" label="失败原因" :show-overflow-tooltip='true'>
+              <template v-slot='scope'>
+                <span>{{scope.row.failReason || '-'}}</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+    </div>
   </div>
 </template>
 <script >
@@ -163,6 +226,10 @@ export default {
           ]
         },
         tableData:[],
+        isShowResult:false,
+        success_count:0,
+        fail_count:0,
+        resultTableData:[],
     }},
     props:[],
     components: {
@@ -196,6 +263,7 @@ export default {
         console.log('batch submit!');
         console.log('request_data',this.request_data);
         this.submitClueConstruct(this.request_data);
+        // this.request_data
         // 调用请求执行线索构造任务接口，每次执行完，清空构造线索池，即this.request_data以及缓存
       },
       addClues(){
@@ -296,17 +364,6 @@ export default {
           clueChannel['address'] = address;
         }
         
-        // "entryMethod_id":"1",
-        //     "channelId":"1",
-        //     "count":"1",
-        //     "isCreateCompany":1,
-        //     "companyName":"邹雪测试工具企业hahaha",
-        //     "username":"zouxue1325",
-        //      "address":{
-        //         "province":"11",
-        //         "city":"1101",
-        //         "area":"110102"
-        //     } 
         this.request_data['clueChannelList'].push(clueChannel);
         console.log(this.request_data);
       },
@@ -347,6 +404,10 @@ export default {
           resp =>{
             let{code,msg,data} = resp;
             if(code==='0'){
+              this.success_count = data['success_count'];
+              this.fail_count = data['fail_count'];
+              this.resultTableData = data['clueList'];
+              this.isShowResult = true;
               this.$message.success({
                                 message:msg,
                                 center:true
@@ -358,10 +419,14 @@ export default {
                                 center:true
                             });
             }
+            // 待构造线索池置空
             this.request_data = {
                 start_phone:'',
                 clueChannelList:[],
               };
+              // 待构造线索池展示的数据置空
+            this.tableData = [];
+            // 缓存的待构造线索池置空
             sessionStorage.setItem('requestData',JSON.stringify(this.request_data));
           }
         )
