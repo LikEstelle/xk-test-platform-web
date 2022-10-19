@@ -63,13 +63,19 @@ export default {
     };
   },
   methods: {
-    async getContrastData() {
+    getContrastData() {
+        const loading = this.$loading({
+          lock: true,
+          text: "Loading",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
       var params = {
         hive_sql: this.tableData.hivesql,
         mysql_sql: this.tableData.mysql,
       };
-      let result = await ContrastData(params);
-      if (result.code == 200) {
+      ContrastData(params).then((result)=>{
+        if (result.code == 200) {
         var params = {
           hive_sql: result.hive_sql,
           mysql_sql: result.mysql_sql,
@@ -77,6 +83,20 @@ export default {
         };
         this.contrast = params;
       }
+      }).finally((req)=>{
+        loading.close();
+      })
+      // let result = await ContrastData(params);
+      // console.log('result',result)
+      // if (result.code == 200) {
+      //   var params = {
+      //     hive_sql: result.hive_sql,
+      //     mysql_sql: result.mysql_sql,
+      //     data: result.data,
+      //   };
+      //   this.contrast = params;
+      // }
+      //   loading.close();
     },
     openFullScreen2() {
       const loading = this.$loading({
@@ -107,7 +127,7 @@ export default {
       console.log(this.tableData.hivesql);
     },
     contrastData() {
-      this.openFullScreen2();
+      // this.openFullScreen2();
       this.getContrastData();
     },
   },
