@@ -237,6 +237,33 @@ export default {
     created() {
     },
     methods:{
+      loadAdrress(province_id,city_id,area_id){
+          var province
+          var city
+          var area
+          areaMap.forEach( function (item, index, areaMap) {
+            console.log(item);
+            if(item.areaCode == province_id){
+              province = item.areaName;
+              console.log(province);
+              let cityMap = item.children;
+              cityMap.forEach(function(citem,cindex,cityMap){
+                if(citem.areaCode == city_id){
+                  city = citem.areaName;
+                  let aMap = citem.children;
+                  aMap.forEach(function(aitem,aindex,aMap){
+                    if(aitem.areaCode == area_id){
+                      area = aitem.areaName;
+                    }
+                  })
+                }
+              })
+            }
+          } )
+          var address = province+'/'+city+'/'+area
+          return address
+
+      },
       onSubmit() {
         console.log('submit!');
         console.log(this.form);
@@ -293,38 +320,18 @@ export default {
           isCreateCompany:this.form.isCreateCompany?'是':'否',
           entryMethod:this.entryMethodOptions[this.form.entryMethod-1].entryMethod
         }
+        //channelName解析
         for(var i=0; i<this.channelOptions.length;i++){
           if(this.form.channel=== this.channelOptions[i].channelId){
             tableI['channelName'] = this.channelOptions[i].channelName
           }
         }
+        //地址code解析
         if(this.form.address.length!==0){
-          var province
-          var city
-          var area
           var province_id = this.form.address[0];
           var city_id = this.form.address[1];
           var area_id = this.form.address[2];
-          areaMap.forEach( function (item, index, areaMap) {
-            console.log(item);
-            if(item.areaCode == province_id){
-              province = item.areaName;
-              console.log(province);
-              let cityMap = item.children;
-              cityMap.forEach(function(citem,cindex,cityMap){
-                if(citem.areaCode == city_id){
-                  city = citem.areaName;
-                  let aMap = citem.children;
-                  aMap.forEach(function(aitem,aindex,aMap){
-                    if(aitem.areaCode == area_id){
-                      area = aitem.areaName;
-                    }
-                  })
-                }
-              })
-            }
-          } )
-          tableI['address'] = province+'/'+city+'/'+area    
+          tableI['address'] = this.loadAdrress(province_id,city_id,area_id)
         }else{
           tableI['address'] = ''
         }
@@ -407,6 +414,19 @@ export default {
             if(code==='0'){
               this.success_count = data['success_count'];
               this.fail_count = data['fail_count'];
+              // 解析地址code为中文
+              for(var clueItem in data['clueList']){
+                if(data['clueList'][clueItem]['address'].length!==0){
+                  var province_id = data['clueList'][clueItem]['address']['province']
+                  var city_id = data['clueList'][clueItem]['address']['city']
+                  var area_id = data['clueList'][clueItem]['address']['area']
+                  var addr = this.loadAdrress(province_id,city_id,area_id)
+                  data['clueList'][clueItem]['address'] = addr
+                }else{
+                  data['clueList'][clueItem]['address'] = ''
+                }
+
+              }
               this.resultTableData = data['clueList'];
               this.isShowResult = true;
               this.$message.success({
@@ -429,6 +449,8 @@ export default {
             this.tableData = [];
             // 缓存的待构造线索池置空
             sessionStorage.setItem('requestData',JSON.stringify(this.request_data));
+            // 手机号字段置为必填
+            this.rules.phone[0].required = true
           }
         )
       }
