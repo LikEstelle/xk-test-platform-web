@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       test:true,
-      title: '质量效能平台',
+      title: '质量平台',
       // logo: '@/assets/weimob-logo.png'
 
       // logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'

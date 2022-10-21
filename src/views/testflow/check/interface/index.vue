@@ -8,8 +8,8 @@
     <el-table-column label="测试计划" prop="name" min-width="100"></el-table-column>
     <el-table-column label="计划类型" prop="description" min-width="100"></el-table-column>
     <el-table-column label="所属业务" prop="business_type" min-width="80"></el-table-column>
-    <el-table-column label="总用例数" prop="case_count" min-width="60"></el-table-column>
-    <el-table-column label="失败用例" prop="fail_count" min-width="60"></el-table-column>
+    <el-table-column label="总数" prop="case_count" min-width="60"></el-table-column>
+    <el-table-column label="失败" prop="fail_count" min-width="60"></el-table-column>
     <el-table-column label="执行时间" prop="last_run_time" min-width="100"></el-table-column>
     <el-table-column label="维护人" prop="owner" min-width="80"></el-table-column>
     <el-table-column label="报告详情" prop="report_detail" min-width="80">
