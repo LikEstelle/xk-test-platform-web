@@ -66,8 +66,8 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 100px;
-      height: 40px;
+      width: 110px;
+      height: 60px;
       vertical-align: middle;
       margin-right: 5px;
     }
@@ -78,7 +78,7 @@ export default {
       color: #000;
       font-weight: 600;
       line-height: 50px;
-      font-size: 10px;
+      font-size: 15px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
       margin-top:10px;

@@ -1,7 +1,7 @@
 <template>
   <div style="height:290px;overflow: auto;" v-infinite-scroll="test">
     <div v-for="item in items" :key="item.text" class="tool">
-      <el-link :underline="false" :href="item.path" style="font-size:16px;color:blue">
+      <el-link :underline="false" @click="get_new_window(item.path)" style="font-size:16px;color:blue">
         <svg-icon :icon-class="item.icon" class="icon"></svg-icon>
         {{item.text }}
       </el-link>
@@ -65,6 +65,11 @@ export default {
       ],
     };
   },
+  methods:{
+    get_new_window(url) {
+        window.open(url);
+    },
+  }
 };
 </script>
 
