@@ -14,7 +14,7 @@
     <el-table-column label="维护人" prop="owner" min-width="80"></el-table-column>
     <el-table-column label="报告详情" prop="report_detail" min-width="80">
       <template slot-scope="{row}">
-        <el-link v-if="row.report_detail !==''" :href="row.report_detail" target="_blank" type="primary">report</el-link>
+        <el-link v-show="row.report_detail !==''" :href="row.report_detail" target="_blank" type="primary">report</el-link>
       </template>
     </el-table-column>
     <el-table-column align="right">
