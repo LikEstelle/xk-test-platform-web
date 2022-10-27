@@ -148,6 +148,12 @@ export const constantRoutes = [
         component: () => import('@/views/testflow/check/ui/index'),
         meta: { title: 'UI自动化', icon: 'home' }
       },
+      {
+        path: 'caseEntry',
+        name: 'CaseEntry',
+        component: () => import('@/views/testflow/check/caseEntry/index'),
+        meta: { title:'用例录入', icon: 'home' }
+      },
     ]
   },
   {

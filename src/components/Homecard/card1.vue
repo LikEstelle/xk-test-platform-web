@@ -4,13 +4,13 @@
 
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
-  name: "Dashboard",
-  computed: {
-    ...mapGetters(["name"]),
-  },
+  // name: "Dashboard",
+  // computed: {
+  //   ...mapGetters(["name"]),
+  // },
   data() {
     return {
       items: [
