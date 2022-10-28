@@ -64,13 +64,13 @@ export const constantRoutes = [
         path: 'versioniteration',
         name: 'VersionIteration',
         component: () => import('@/views/testflow/measure/versioniteration/index'),
-        meta: { title: '版本迭代', icon: 'home' }
+        meta: { title: '版本迭代', icon: 'el-icon-date' }
       },
       {
         path: 'qualityreview',
         name: 'QualityReview',
         component: () => import('@/views/testflow/measure/qualityreview/index'),
-        meta: { title: '质量复盘', icon: 'home' }
+        meta: { title: '质量复盘', icon: 'el-icon-c-scale-to-original' }
       },
     ]
   },
@@ -85,19 +85,19 @@ export const constantRoutes = [
         path: 'monitoring',
         name: 'Monitoring',
         component: () => import('@/views/testflow/guard/monitoring/index'),
-        meta: { title: '异常监控', icon: 'home' }
+        meta: { title: '异常监控', icon: 'el-icon-monitor' }
       },
       {
         path: 'lnspection',
         name: 'Lnspection',
         component: () => import('@/views/testflow/guard/lnspection/index'),
-        meta: { title: '生产巡检', icon: 'home' }
+        meta: { title: '生产巡检', icon: 'el-icon-view' }
       },
       {
         path: 'weburl',
         name: 'WebUrl',
         component: () => import('@/views/testflow/guard/weburl/index'),
-        meta: { title: 'web响应时间', icon: 'home' }
+        meta: { title: 'web响应时间', icon: 'el-icon-pie-chart' }
       },
     ]
   },
@@ -112,13 +112,13 @@ export const constantRoutes = [
         path: 'datatest',
         name: 'DataTest',
         component: () => import('@/views/testflow/tools/datatest/index'),
-        meta: { title: '数据对比', icon: 'home' }
+        meta: { title: '数据对比', icon: 'el-icon-data-analysis' }
       },
       {
         path: 'factory',
         name: 'Factory',
         component: () => import('@/views/testflow/tools/factory/index'),
-        meta: { title: '数据工厂', icon: 'home' }
+        meta: { title: '数据工厂', icon: 'el-icon-office-building' }
       },
       {
         path: 'clueconstruct',
@@ -140,19 +140,19 @@ export const constantRoutes = [
         path: 'interface',
         name: 'Interface',
         component: () => import('@/views/testflow/check/interface/index'),
-        meta: { title: '接口自动化', icon: 'home' }
+        meta: { title: '接口自动化', icon: 'el-icon-news' }
       },
       {
         path: 'ui',
         name: 'Ui',
         component: () => import('@/views/testflow/check/ui/index'),
-        meta: { title: 'UI自动化', icon: 'home' }
+        meta: { title: 'UI自动化', icon: 'el-icon-guide' }
       },
       {
         path: 'caseEntry',
         name: 'CaseEntry',
         component: () => import('@/views/testflow/check/caseEntry/index'),
-        meta: { title:'用例录入', icon: 'home' }
+        meta: { title:'用例录入', icon: 'el-icon-thumb' }
       },
     ]
   },
@@ -167,13 +167,13 @@ export const constantRoutes = [
         path: 'scheduling',
         name: 'Scheduling',
         component: () => import('@/views/testflow/manage/scheduling/index'),
-        meta: { title: '排期报表', icon: 'home' }
+        meta: { title: '排期报表', icon: 'el-icon-stopwatch' }
       },
       {
         path: 'file',
         name: 'File',
         component: () => import('@/views/testflow/manage/file/index'),
-        meta: { title: '质量文档', icon: 'home' }
+        meta: { title: '质量文档', icon: 'el-icon-document' }
       },
     ]
   },

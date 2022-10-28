@@ -2,10 +2,10 @@
   <div>
     <el-form ref="form" :model="sizeForm" label-width="80px" size="medium">
       <el-form-item label="PID" class="div_input">
-        <el-input v-model="sizeForm.name" placeholder="请输入pid" clearable></el-input>
+        <el-input v-model="sizeForm.pid" placeholder="请输入pid" clearable></el-input>
       </el-form-item>
       <el-form-item label="插件">
-        <el-select v-model="sizeForm.region" placeholder="请选插件">
+        <el-select v-model="sizeForm.plugin_id" placeholder="请选插件">
           <el-option
             v-for="item in options"
             :key="item.index"
@@ -29,14 +29,8 @@ export default {
   data() {
     return {
       sizeForm: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
+        pid: "",
+        plugin_id: "",
       },
       options: [
         {
@@ -89,12 +83,11 @@ export default {
   methods: {
     onSubmit() {
       this.Buy()
-      console.log("submit!");
     },
     async Buy() {
       var params = {
-        plugin_id:this.sizeForm.region,
-        pid:this.sizeForm.name,
+        plugin_id:this.sizeForm.plugin_id,
+        pid:this.sizeForm.pid,
       };
       let result = await BuyPlugin(params);
       if (result.code == 200) {

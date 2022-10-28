@@ -1,8 +1,24 @@
+<!-- 测试页面 -->
 <template>
+  <div></div>
 </template>
 
 <script>
-</script>
+export default {
+  data () {
+    return {
+    };
+  },
 
-<style lang="scss" scoped>
+  components: {},
+
+  computed: {},
+
+  mounted: {},
+
+  methods: {}
+}
+
+</script>
+<style lang='less' scoped>
 </style>

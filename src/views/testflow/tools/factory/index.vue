@@ -1,20 +1,5 @@
 <template>
   <div class="main-wrap">
-    <!-- <div> 
-      <ul class="ulul">
-        <li 
-          v-for="(item,index) in menu"
-          :key="index"
-          :class="{active : ( isActive == item.value ? true : false )}"
-          @click="isActive = item.value;currentComp = item.comp"
-          >
-          {{item.name}}
-        </li>
-      </ul>
-    </div>
-    <div>
-      <test1 :is="currentComp"></test1>
-    </div> -->
     <el-tabs v-model="editableTabsValue" type="card" class="test-card">
       <el-tab-pane
         class="test-tabs-wrap"
@@ -23,7 +8,6 @@
         :label="item.title"
         :name="item.name"
       >
-        <!-- {{ item.content }} -->
         <a :is="item.content"></a>
       </el-tab-pane>
     </el-tabs>
