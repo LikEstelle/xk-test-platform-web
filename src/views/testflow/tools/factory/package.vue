@@ -2,12 +2,12 @@
   <div>
     <el-form ref="form" :model="sizeForm" label-width="80px" size="medium">
       <el-form-item label="PID" class="div_input">
-        <el-input v-model="sizeForm.name" placeholder="请输入pid" clearable=true></el-input>
+        <el-input v-model="sizeForm.name" placeholder="请输入pid" clearable></el-input>
       </el-form-item>
       <el-form-item label="套餐">
         <el-select v-model="sizeForm.region" placeholder="请选择套餐">
           <el-option
-            v-for="(item,index) in options"
+            v-for="item in options"
             :key="item.index"
             :label="item.label"
             :value="item.value"

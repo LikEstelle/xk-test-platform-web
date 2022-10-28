@@ -19,7 +19,7 @@
       <el-tab-pane
         class="test-tabs-wrap"
         :key="item.name"
-        v-for="(item, index) in editableTabs"
+        v-for="item in editableTabs"
         :label="item.title"
         :name="item.name"
       >
