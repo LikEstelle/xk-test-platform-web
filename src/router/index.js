@@ -102,22 +102,22 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/testflow',
+    path: '/testflow/tools',
     component: Layout,
-    redirect: '/testflow/datatest',
+    redirect: '/testflow/tools/datatest',
     name: 'Testflow',
     meta: { title: '质量工具', icon: 'el-icon-s-cooperation' },
     children: [
       {
         path: 'datatest',
         name: 'DataTest',
-        component: () => import('@/views/testflow/datatest/index'),
+        component: () => import('@/views/testflow/tools/datatest/index'),
         meta: { title: '数据对比', icon: 'home' }
       },
       {
         path: 'factory',
         name: 'Factory',
-        component: () => import('@/views/testflow/factory/index'),
+        component: () => import('@/views/testflow/tools/factory/index'),
         meta: { title: '数据工厂', icon: 'home' }
       },
       {

@@ -15,6 +15,18 @@ export default {
     return {
       items: [
         {
+          text: "客服系统-工单系统-线上",
+          describe: "数据报表数据对比",
+          icon: "card1-2",
+          path: "https://cs.hsmob.com/workorder/list",
+        },
+        {
+          text: "埋点测试",
+          describe: "数据报表数据对比",
+          icon: "card1-2",
+          path: "http://stt.weimobqa.com/casemanage/dashboard/ongoingproject",
+        },
+        {
           text: "销氪需求文档nos平台",
           describe: "客资，营销，寻客宝，订单常规接口&OpenAPI接口",
           icon: "card1-1",
@@ -49,12 +61,6 @@ export default {
           describe: "数据报表数据对比",
           icon: "card1-2",
           path: "http://apm.qa.internal.hsmob.com/#/",
-        },
-        {
-          text: "客服系统-工单系统-线上",
-          describe: "数据报表数据对比",
-          icon: "card1-2",
-          path: "https://cs.hsmob.com/workorder/list",
         },
         {
           text: "ES",
