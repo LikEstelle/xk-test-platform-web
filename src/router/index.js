@@ -126,6 +126,13 @@ export const constantRoutes = [
         component: () => import('@/views/testflow/tools/cluesconstrcut/index'),
         meta: { title: '线索构造', icon: 'el-icon-folder-add' }
 
+      },
+      {
+        path: 'upload',
+        name: 'UPload',
+        component: () => import('@/views/testflow/tools/upload/index'),
+        meta: { title: '导入', icon: 'el-icon-upload' }
+
       }
     ]
   },

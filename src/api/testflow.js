@@ -75,10 +75,10 @@ export function BuyRights(data) {
 }
 
 // 设备管理接口
-export function SourceManagementAll(page_size) {
+export function SourceManagement(data) {
   return request({
-    url: `/testflow/tools/SourceManagement/?page_size=${page_size}`,
-    method: 'get',
+    url: "/testflow/tools/SourceManagement/",
+    data
   })
 }
 

@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import { SourceManagementAll, SourceManagementID,PSourceManagementID } from "@/api/testflow";
+import { SourceManagement, SourceManagementID,PSourceManagementID } from "@/api/testflow";
 export default {
   data() {
     return {
@@ -142,7 +142,7 @@ export default {
     },
     async getSourceManagementAll() {
       var page_size = 100;
-      let result = await SourceManagementAll(page_size);
+      let result = await SourceManagement({page_size});
       if (result.code == 200) {
         this.tableData = result.data.list;
       }
