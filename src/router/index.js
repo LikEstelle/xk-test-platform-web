@@ -72,6 +72,12 @@ export const constantRoutes = [
         component: () => import('@/views/testflow/measure/qualityreview/index'),
         meta: { title: '质量复盘', icon: 'home' }
       },
+      {
+        path:'workorderanalysis',
+        name:'WorkOrderAnalysis',
+        component:()=>import('@/views/testflow/measure/workorderanalysis/index'),
+        meta:{title:'工单分析',icon:'el-icon-data-line'}
+      }
     ]
   },
   {
