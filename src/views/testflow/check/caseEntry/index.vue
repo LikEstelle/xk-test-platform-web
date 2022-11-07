@@ -1,4 +1,4 @@
-<!-- 生产巡检 -->
+<!-- 测试页面 -->
 <template>
   <div></div>
 </template>

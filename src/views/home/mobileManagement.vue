@@ -9,7 +9,7 @@
         <el-table-column type="index" width="50" fixed label="序号"></el-table-column>
         <el-table-column label="手机品牌" prop="brand" fixed></el-table-column>
         <el-table-column
-          show-overflow-tooltip="true"
+          show-overflow-tooltip
           min-width="125px"
           label="设备名称/型号"
           prop="specs"
@@ -19,7 +19,7 @@
         <el-table-column label="系统版本" prop="system_version" fixed></el-table-column>
         <el-table-column label="手机配置" prop="config" fixed></el-table-column>
         <el-table-column
-          show-overflow-tooltip="true"
+          show-overflow-tooltip
           label="序列号/IMEI"
           min-width="125px"
           prop="serial_number"
@@ -31,10 +31,10 @@
         <el-table-column min-width="100px" label="所属业务线" prop="belonging"></el-table-column>
         <el-table-column label="状态" prop="status"></el-table-column>
         <el-table-column label="被借用" prop="is_borrow"></el-table-column>
-        <el-table-column show-overflow-tooltip="true" label="借用人" prop="borrower"></el-table-column>
+        <el-table-column show-overflow-tooltip label="借用人" prop="borrower"></el-table-column>
         <el-table-column label="核对" prop="check"></el-table-column>
         <el-table-column align="right" min-width="125px">
-          <template slot="header" slot-scope="scope">
+          <template slot="header">
             <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
           </template>
           <template slot-scope="scope">
@@ -107,71 +107,14 @@
 </template>
 
 <script>
-import { SourceManagementAll, SourceManagementID,PSourceManagementID } from "@/api/testflow";
+import { SourceManagement, SourceManagementID,PSourceManagementID } from "@/api/testflow";
 export default {
   data() {
     return {
-      // tableData: [
-      //   {
-      //     id: 1,
-      //     brand: "Apple",
-      //     specs: "iPhone 11 Pro MAX",
-      //     system: "IOS",
-      //     system_version: "13.6",
-      //     config: "64G",
-      //     serial_number: "FK1ZD2WAN701",
-      //     assets_number: "GDZC1049",
-      //     apply_time: "2021/2/1",
-      //     colour: "石墨色",
-      //     holder: "张 冠",
-      //     belonging: "销氪-寻客宝",
-      //     status: "已在用",
-      //     is_borrow: "否",
-      //     borrower: "",
-      //     check: "已核对",
-      //   },
-      //   {
-      //     id: 2,
-      //     brand: "OPPO",
-      //     specs: "OPPO Reno6 5G",
-      //     system: "Android",
-      //     system_version: "11",
-      //     config: "8GB+128GB",
-      //     serial_number: "861271046090317,861271046090309",
-      //     assets_number: "GDZC1360",
-      //     apply_time: "2020/3/1",
-      //     colour: "夜海",
-      //     holder: "王锁柱",
-      //     belonging: "销氪-寻客宝2",
-      //     status: "共用手机",
-      //     is_borrow: "是",
-      //     borrower:
-      //       "汪绍云-微盟集团-研发中心/增长创新技术部/前端 -借用时间不确定",
-      //     check: "未核对",
-      //   },
-      // ],
       tableData: [],
       search: "",
       dialogFormVisible: false,
       formLabelWidth: "100px",
-      // form: {
-      //   id: 1,
-      //   brand: "Apple",
-      //   specs: "iPhone 11 Pro MAX",
-      //   system: "IOS",
-      //   system_version: "13.6",
-      //   config: "64G",
-      //   serial_number: "FK1ZD2WAN701",
-      //   assets_number: "GDZC1049",
-      //   apply_time: "2021/2/1",
-      //   colour: "石墨色",
-      //   holder: "张 冠",
-      //   belonging: "销氪-寻客宝",
-      //   status: "已在用",
-      //   is_borrow: "否",
-      //   borrower: "",
-      //   check: "已核对",
-      // },
       form:{}
     };
   },
@@ -199,7 +142,7 @@ export default {
     },
     async getSourceManagementAll() {
       var page_size = 100;
-      let result = await SourceManagementAll(page_size);
+      let result = await SourceManagement({page_size});
       if (result.code == 200) {
         this.tableData = result.data.list;
       }
@@ -223,6 +166,7 @@ export default {
   },
 };
 </script>
+
 
 <style lang="scss" scoped>
 .dashboard {

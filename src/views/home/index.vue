@@ -1,29 +1,13 @@
 <template>
   <div class="main-wrap">
-    <!-- <div> 
-      <ul class="ulul">
-        <li 
-          v-for="(item,index) in menu"
-          :key="index"
-          :class="{active : ( isActive == item.value ? true : false )}"
-          @click="isActive = item.value;currentComp = item.comp"
-          >
-          {{item.name}}
-        </li>
-      </ul>
-    </div>
-    <div>
-      <test1 :is="currentComp"></test1>
-    </div> -->
     <el-tabs v-model="editableTabsValue" type="card" class="test-card">
       <el-tab-pane
         class="test-tabs-wrap"
         :key="item.name"
-        v-for="(item, index) in editableTabs"
+        v-for="item in editableTabs"
         :label="item.title"
         :name="item.name"
       >
-        <!-- {{ item.content }} -->
         <a :is="item.content"></a>
       </el-tab-pane>
     </el-tabs>
@@ -33,37 +17,11 @@
 // 引入组件
 import homeWindow from "./homeWindow";
 import mobileManagement from "./mobileManagement";
-import test2Window from "./test2Window";
-import test3 from "./test3";
-import test4 from "./test4";
+import qualityStandard from "./qualityStandard";
 
 export default {
   data() {
     return {
-      // 当前选中的组件
-      // currentComp: "homeWindow",
-      // 当前选中的li标签
-      // isActive: "1",
-      // menu: [
-      //   {
-      //     // li标签的内容
-      //     name: "会员管理",
-      //     // 当前li标签是否选中的标识
-      //     value: "1",
-      //     // 点击当前li标签，要显示的组件
-      //     comp: "homeWindow",
-      //   },
-      //   {
-      //     name: "场馆管理",
-      //     value: "2",
-      //     comp: "test1Window",
-      //   },
-      //   {
-      //     name: "品牌管理",
-      //     value: "3",
-      //     comp: "test2Window",
-      //   },
-      // ],
       editableTabsValue: "1",
       editableTabs: [
         {
@@ -74,7 +32,7 @@ export default {
         {
           title: "质量规范",
           name: "3",
-          content: "test3",
+          content: "qualityStandard",
         },
         {
           title: "设备管理",
@@ -89,9 +47,7 @@ export default {
   components: {
     homeWindow,
     mobileManagement,
-    test2Window,
-    test3,
-    test4
+    qualityStandard,
   },
 };
 </script>

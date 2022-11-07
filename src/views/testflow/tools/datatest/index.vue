@@ -27,7 +27,6 @@
           <el-input v-model="tableData.hivesql"></el-input>
         </el-form-item>
       </el-form>
-      <!-- <pre>{{ JSON.stringify(contrast, null, 4)  }}</pre> -->
       <json-viewer :value="contrast"></json-viewer>
     </div>
   </div>
@@ -36,7 +35,6 @@
 import sqlFormatter from "sql-formatter";
 import SqlEditor from "@/components/SqlEditor";
 import { ContrastData } from "@/api/testflow";
-import { Loading } from "element-ui";
 
 export default {
   components: {
@@ -86,17 +84,6 @@ export default {
       }).finally((req)=>{
         loading.close();
       })
-      // let result = await ContrastData(params);
-      // console.log('result',result)
-      // if (result.code == 200) {
-      //   var params = {
-      //     hive_sql: result.hive_sql,
-      //     mysql_sql: result.mysql_sql,
-      //     data: result.data,
-      //   };
-      //   this.contrast = params;
-      // }
-      //   loading.close();
     },
     openFullScreen2() {
       const loading = this.$loading({
@@ -127,7 +114,6 @@ export default {
       console.log(this.tableData.hivesql);
     },
     contrastData() {
-      // this.openFullScreen2();
       this.getContrastData();
     },
   },

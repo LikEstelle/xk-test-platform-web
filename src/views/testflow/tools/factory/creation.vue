@@ -2,18 +2,18 @@
   <div>
     <el-form ref="form" :model="sizeForm" label-width="100px" size="medium">
       <el-form-item label="手机号" class="div_input">
-        <el-input v-model="sizeForm.phone" placeholder="请输入手机号" clearable=true></el-input>
+        <el-input v-model="sizeForm.phone" placeholder="请输入手机号" clearable></el-input>
       </el-form-item>
       <el-form-item label="创建企业名称" class="div_input">
-        <el-input v-model="sizeForm.enterprise_name" placeholder="请输入要创建的企业名称" clearable=true></el-input>
+        <el-input v-model="sizeForm.enterprise_name" placeholder="请输入要创建的企业名称" clearable></el-input>
       </el-form-item>
        <el-form-item label="用户姓名" class="div_input">
-        <el-input v-model="sizeForm.name" placeholder="请输入创建的用户姓名" clearable=true></el-input>
+        <el-input v-model="sizeForm.name" placeholder="请输入创建的用户姓名" clearable></el-input>
       </el-form-item>
       <el-form-item label="套餐">
         <el-select v-model="sizeForm.pack_id" placeholder="请选择套餐">
           <el-option
-            v-for="(item,index) in pack"
+            v-for="item in pack"
             :key="item.index"
             :label="item.label"
             :value="item.value"
@@ -23,7 +23,7 @@
       <el-form-item label="插件">
         <el-select v-model="sizeForm.plugin_id" placeholder="请选择插件">
           <el-option
-            v-for="(item,index) in plugin"
+            v-for="item in plugin"
             :key="item.index"
             :label="item.label"
             :value="item.value"

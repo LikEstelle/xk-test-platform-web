@@ -1,17 +1,7 @@
-<template>
-  <div style="height:290px;overflow: auto;" v-infinite-scroll="test">
-    <div v-for="item in items" :key="item.text" class="tool">
-      <el-link :underline="false" :href="item.path" style="font-size:16px;color:blue">
-        <svg-icon :icon-class="item.icon" class="icon"></svg-icon>
-        {{item.text }}
-      </el-link>
-      <!-- <router-link 
-    to="/testflow/testreport"
-      >{{item.text}}</router-link>-->
-      <p class="describe">{{item.describe }}</p>
-    </div>
-  </div>
-</template>
+<template src="./template.html"></template>
+<style src="./style.css"></style>
+
+
 
 <script>
 import { mapGetters } from "vuex";
@@ -24,6 +14,18 @@ export default {
   data() {
     return {
       items: [
+        {
+          text: "客服系统-工单系统-线上",
+          describe: "数据报表数据对比",
+          icon: "card1-2",
+          path: "https://cs.hsmob.com/workorder/list",
+        },
+        {
+          text: "埋点测试",
+          describe: "数据报表数据对比",
+          icon: "card1-2",
+          path: "http://stt.weimobqa.com/casemanage/dashboard/ongoingproject",
+        },
         {
           text: "销氪需求文档nos平台",
           describe: "客资，营销，寻客宝，订单常规接口&OpenAPI接口",
@@ -61,12 +63,6 @@ export default {
           path: "http://apm.qa.internal.hsmob.com/#/",
         },
         {
-          text: "客服系统-工单系统-线上",
-          describe: "数据报表数据对比",
-          icon: "card1-2",
-          path: "https://cs.hsmob.com/workorder/list",
-        },
-        {
           text: "ES",
           describe: "数据报表数据对比",
           icon: "card1-2",
@@ -87,16 +83,13 @@ export default {
       ],
     };
   },
+  methods:{
+    get_new_window(url) {
+        window.open(url);
+    },
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-.describe {
-  font-size: 5px;
-}
-.tool {
-  border: 1px;
-  margin: 20px 0 0 0;
-}
-</style>
+
  

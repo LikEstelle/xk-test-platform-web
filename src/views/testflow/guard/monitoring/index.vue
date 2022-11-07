@@ -35,7 +35,7 @@
     <div>
       <el-collapse v-model="activeName" accordion>
         <el-collapse-item
-          v-for="(item, index) in errors"
+          v-for="item in errors"
           :key="item.index"
           :title="item.traceId+'---'+item.parentEndpoint"
           :name="item.unit_name"
@@ -44,7 +44,7 @@
           <div class="block">
             <el-timeline>
               <el-timeline-item
-                v-for="(item,index) in item.error_info"
+                v-for="item in item.error_info"
                 :key="item.index"
                 :timestamp="item.startTime"
                 placement="top"
@@ -53,16 +53,12 @@
                   <h4>端点名称: {{item.parentEndpoint}}</h4>
                   <p>应用名: {{item.service}}</p>
                   <p>接口类型: {{item.type}}</p>
-                  <p v-if="item.cache==''"></p>
-                  <p v-else>Cache: {{item.cache}}</p>
-                  <p v-if="item.sql==''"></p>
-                  <p v-else>
+                  <p v-show="item.cache !==''">Cache: {{item.cache}}</p>
+                  <p v-show="item.sql !==''">
                     <el-link slot="reference" :underline="false">Sql: {{item.sql}}</el-link>
                   </p>
-                  <p v-if="item.sqlResult==''"></p>
-                  <p v-else>SqlQuery: {{item.sqlResult}}</p>
-                  <p v-if="item.url==''"></p>
-                  <p v-else>
+                  <p v-show="item.sqlResult !==''">SqlQuery: {{item.sqlResult}}</p>
+                  <p v-show="item.url !==''">
                     <el-link :href="item.url" target="_blank" type="primary">微盟开发平台</el-link>
                   </p>
                 </el-card>

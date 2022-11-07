@@ -1,26 +1,16 @@
-<template>
-  <div style="height:290px;overflow: auto;" v-infinite-scroll="test">
-    <div v-for="item in items" :key="item.text" class="tool">
-      <el-link :underline="false" :href="item.path" style="font-size:16px;color:blue">
-        <svg-icon :icon-class="item.icon" class="icon"></svg-icon>
-        {{item.text }}
-      </el-link>
-      <!-- <router-link 
-    to="/testflow/testreport"
-      >{{item.text}}</router-link>-->
-      <p class="describe">{{item.describe }}</p>
-    </div>
-  </div>
-</template>
+<template src="./template.html"></template>
+<style src="./style.css"></style>
+
+
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
-  name: "Dashboard",
-  computed: {
-    ...mapGetters(["name"]),
-  },
+  // name: "Dashboard",
+  // computed: {
+  //   ...mapGetters(["name"]),
+  // },
   data() {
     return {
       items: [
@@ -106,16 +96,17 @@ export default {
       ],
     };
   },
+  methods:{
+    get_new_window(url) {
+        window.open(url);
+    },
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-.describe {
-  font-size: 5px;
-}
-.tool {
-  border: 1px;
-  margin: 20px 0 0 0;
-}
-</style>
+
+
+
+
+
  
