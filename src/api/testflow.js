@@ -115,3 +115,13 @@ export function Scrip(type) {
     method: 'get',
   })
 }
+
+
+// 导入
+export function Import(data) {
+  return request({
+    url: '/testflow/tools/importhar/',
+    method: 'post',
+    data
+  })
+}
