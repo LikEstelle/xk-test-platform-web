@@ -54,10 +54,12 @@ import ModuleTree from "@/views/common/module/moduleTree.vue"; //引入封装的
 import ModuleAppend from "@/views/common/module/moduleAppend.vue"; //引入封装的分页器文件
 import Paging from "@/views/common/components/pagination.vue"; //引入封装的分页器文件
 
+import { Module } from "@/api/testflow";
+
 export default {
   data() {
     return {
-      loading:false,
+      loading: false,
       apiListData: [],
       title: "添加接口模块",
       moduleVisible: false,
@@ -104,7 +106,9 @@ export default {
 
   // computed: {},
 
-  // mounted: {},
+  mounted() {
+    this.getTree()
+  },
 
   methods: {
     clickModule(data) {
@@ -185,6 +189,16 @@ export default {
     sizeChange(val) {
       this.gather.pageSize = val;
       // this.getFactoryListAsync(); //调用接口方法
+    },
+    //获取左侧树数据
+    async getTree() {
+      console.log("get tree data");
+      var module_type=0
+       let result=await Module({module_type})
+        if (result.code ==200){
+          console.log("getTree",result.data)
+          this.tree = result.data.list
+        }
     },
   },
 };

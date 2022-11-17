@@ -125,3 +125,11 @@ export function Import(data) {
     data
   })
 }
+
+// 获取接口模块
+export function Module(data) {
+  return request({
+    url: "/testflow/TestCase/Module",
+    data
+  })
+}
