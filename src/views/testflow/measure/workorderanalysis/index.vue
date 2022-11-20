@@ -37,22 +37,14 @@
                 width="160"
                 >
                 <el-button type="text" @click="dialogFormVisible = true" size="mini">设置列表字段</el-button>
-                <el-dialog title="收货地址" :visible.sync="dialogFormVisible" append-to-body>
-                    <el-form :model="form">
-                        <el-form-item label="活动名称" :label-width="formLabelWidth">
-                        <el-input v-model="form.name" autocomplete="off"></el-input>
-                        </el-form-item>
-                        <el-form-item label="活动区域" :label-width="formLabelWidth">
-                        <el-select v-model="form.region" placeholder="请选择活动区域">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
-                        </el-form-item>
-                    </el-form>
-                    <div slot="footer" class="dialog-footer">
+                <el-dialog title="设置列表展示字段" :visible.sync="dialogFormVisible" append-to-body width="500px">
+                    <div v-for="item in workorder_colums_setting" :key="item.colums_key">
+                        <el-checkbox v-model="item.is_show" @change="editTableColums()">{{item.colums_name}}</el-checkbox>
+                    </div>
+                    <!-- <div slot="footer" class="dialog-footer">
                         <el-button @click="dialogFormVisible = false">取 消</el-button>
                         <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-                    </div>
+                    </div> -->
                 </el-dialog>
                 <el-button slot="reference" icon="el-icon-setting" circle size="mini"></el-button>
             </el-popover>
@@ -64,17 +56,33 @@
             <el-table-column v-for="(col,index) in workorder_colums" :key="index" align="center"
             :prop="col.colums_key" :label="col.colums_name" :width="col.colums_width" show-overflow-tooltip>
                 <template slot-scope="scope">
-                    <el-tag v-if="col.colums_key == 'is_problem' && scope.row[col.colums_key]!==''" size="mini">{{ scope.row[col.colums_key] }}</el-tag>
-                    <el-tag v-else-if="col.colums_key == 'type' && scope.row[col.colums_key]!==''" size="mini" type="warning">{{ scope.row[col.colums_key] }}</el-tag>
-                    <el-tag v-else-if="col.colums_key == 'problem_side' && scope.row[col.colums_key]!==''" size="mini" type="success">{{ scope.row[col.colums_key] }}</el-tag>
-                    <el-tag v-else-if="col.colums_key == 'module' && scope.row[col.colums_key]!==''" size="mini" type="info">{{ scope.row[col.colums_key] }}</el-tag>
+                    <!-- 以tag形式展示数据，聚焦后下拉框选择 -->
+                    <tableEdit v-if="col.colums_key == 'is_problem' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'primary'"></tableEdit>
+                    <tableEdit v-else-if="col.colums_key == 'type' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'warning'"></tableEdit>
+                    <tableEdit v-else-if="col.colums_key == 'problem_side' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'success'"></tableEdit>
+                    <tableEdit v-else-if="col.colums_key == 'module' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'info'"></tableEdit>
+                    
+                    <!-- 以span标签展示数据，获取到的是code展示对应的文案，聚焦后下拉框选择 -->
+                    <tableEdit v-else-if="col.colums_key == 'is_solved' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+                    <tableEdit v-else-if="col.colums_key == 'is_repeat' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+                    <tableEdit v-else-if="col.colums_key == 'is_convert_demand' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+                    <tableEdit v-else-if="col.colums_key == 'is_adopted' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+
                     <!-- 标题带url -->
-                    <!-- <span v-else-if="col.colums_key == 'title'">{{scope.row['url']}}</span> -->
                     <a v-else-if="col.colums_key == 'title'" :href="scope.row['url']" target="_blank" class="buttonText">{{scope.row[col.colums_key]}}</a>
                     <!-- 不可编辑的字段 -->
                     <span v-else-if="col.colums_key == 'create_time'">{{scope.row[col.colums_key]}}</span>
-                    <!-- 其余字段可以编辑，有焦点时可以input -->
-                    <div v-else>
+
+                    <!-- 其余字段可以编辑，有焦点时可以input,失去焦点时可以编辑 -->
+                    <fy-tooltip v-else :tipContent="scope.row[col.colums_key]">
                         <el-input
                             v-if="scope.row.index == rowIndex && scope.column.index == columnIndex"
                             v-model="scope.row[col.colums_key]"
@@ -82,8 +90,9 @@
                             size="mini"
                         ></el-input>
                         <span v-else>{{scope.row[col.colums_key]}}</span>
-                    </div>
-                    <span v-if="scope.row[col.colums_key] == '' && !(scope.row.index == rowIndex && scope.column.index == columnIndex)">-</span>
+                    </fy-tooltip>
+                    
+                    <span v-if="(scope.row[col.colums_key] == '' || scope.row[col.colums_key] == null)&& scope.row[col.colums_key]!=0 && !(scope.row.index == rowIndex && scope.column.index == columnIndex)">-</span>
                 </template>
             </el-table-column>
         </el-table>
@@ -102,8 +111,10 @@
 <script >
 import { mapGetters } from 'vuex'
 import Select from '@/components/Select/index.vue'
+import tableEditComponent from './tableEditComponent.vue'
 import filters from '@/store/workorder/filters'
-import { getWorkOrderData } from '@/api/tool'
+import tableDefaultColumsSetting from '@/store/workorder/tableDefaultColums'
+import { getWorkOrderData, editWorkOrderData } from '@/api/tool'
 export default {
     data() {
       return{
@@ -117,52 +128,13 @@ export default {
             settingPopoverVisible: false,
             dialogFormVisible: false,
 
-            workorder_colums:[
-                {
-                    colums_key:'title',
-                    colums_name:'标题',
-                    colums_width:'230px'
-                },
-                {
-                    colums_key:'create_time',
-                    colums_name:'创建时间',
-                    colums_width:'180px'
-                },
-                {
-                    colums_key:'is_problem',
-                    colums_name:'是否是问题',
-                    colums_width:'100px'
-                },{
-                    colums_key:'type',
-                    colums_name:'问题类型',
-                    colums_width:'100px'
-                },{
-                    colums_key:'reason',
-                    colums_name:'问题原因',
-                    colums_width:'180px'
-                },{
-                    colums_key:'repair_method',
-                    colums_name:'修复方案',
-                    colums_width:'180px'
-                },{
-                    colums_key:'problem_side',
-                    colums_name:'问题产生端',
-                    colums_width:'100px'
-                },{
-                    colums_key:'module',
-                    colums_name:'所属模块',
-                    colums_width:'100px'
-                },{
-                    colums_key:'repairer',
-                    colums_name:'工单修复人',
-                    colums_width:'100px'
-                }
-            ],
-            workorderTableData:[],
-            rowIndex: -1, //行索引
-	        columnIndex: -1, //列索引
-            tableHeight:'100px',
+            workorder_colums_setting: tableDefaultColumsSetting,
 
+            workorderTableData:[],
+            tableHeight:'100px',
+            rowIndex: -1, //输入框出现的行索引
+	        columnIndex: -1, //输入框出现的列索引
+            
             current_page:1,
             total_count:0,
 
@@ -186,6 +158,7 @@ export default {
     props:[],
     components: {
         'text-select':Select,
+        'tableEdit': tableEditComponent,
     },
     created() {
     },
@@ -211,6 +184,16 @@ export default {
         },
         filterVisibleCount(){
             return this.filterVisibleList.length
+        },
+        workorder_colums(){
+            // 获取缓存的表格展示列设置
+            var session_setting = JSON.parse(sessionStorage.getItem('table_colums_setting'));
+            if(session_setting!=null){
+                this.workorder_colums_setting = session_setting
+            }
+            return this.workorder_colums_setting.filter((item) => {
+                return item.is_show == true
+            })
         }
     },
     mounted() {
@@ -226,9 +209,9 @@ export default {
             this.windowHeight = document.body.clientHeight;
             this.indexHeight = this.windowHeight + 'px';
             this.windowWidth = document.body.clientWidth;
+            
         })();
         };
-
         this.getWorkOrderList();
     },
     watch:{
@@ -253,6 +236,7 @@ export default {
                 // 将返回的list内的数据转换成workorderTableData
                 for(var item in responseList){
                     var workorderItem = {
+                        id: responseList[item]['id'],
                         title: responseList[item]['title'],
                         url: responseList[item]['url'],
                         create_time: responseList[item]['create_time'],
@@ -262,14 +246,25 @@ export default {
                         repair_method: responseList[item]['repair_method'],
                         problem_side: responseList[item]['problem_side'],
                         module: responseList[item]['module'],
-                        repairer: responseList[item]['repairer']
+                        repairer: responseList[item]['repairer'],
+                        is_solved: responseList[item]['is_solved'],
+                        is_repeat: responseList[item]['is_repeat'],
+                        replay: responseList[item]['replay'],
+                        follower: responseList[item]['follower'],
+                        is_convert_demand: responseList[item]['is_convert_demand'],
+                        demand_confirmer: responseList[item]['demand_confirmer'],
+                        is_adopted: responseList[item]['is_adopted'],
+
                     }
                     this.workorderTableData.push(workorderItem);
                 }
             }
         },
-        //获取工单列表当前页的数据
+        //翻页   获取工单列表当前页的数据
         async handleCurrentChange(val){
+            // 取消定位编辑框
+            this.rowIndex = -1;
+	        this.columnIndex = -1;
             this.current_page = val;
             this.workorderTableData = [];
             await this.getWorkOrderList();
@@ -286,12 +281,44 @@ export default {
 	      this.rowIndex = row.index;
 	      this.columnIndex = column.index;
 	    },
-	    // 失去焦点
+	    // 失去焦点 编辑数据
 	    inputBlur(rowData) {
 	      this.rowIndex = -1;
 	      this.columnIndex = -1;
-          console.log(rowData);
+          var id = rowData.id
+          var editData = {
+            is_problem: rowData.is_problem,
+            type: rowData.type,
+            reason: rowData.reason,
+            repair_method: rowData.repair_method,
+            problem_side: rowData.problem_side,
+            module: rowData.module,
+            repairer: rowData.repairer,
+            is_solved: rowData.is_solved,
+            is_repeat: rowData.is_repeat,
+            replay: rowData.replay,
+            follower: rowData.follower,
+            is_convert_demand: rowData.is_convert_demand,
+            demand_confirmer: rowData.demand_confirmer,
+            is_adopted: rowData.is_adopted,
+
+        }
+        editWorkOrderData(id, editData).then(response=>{
+              let {msg,code,data} = response;
+              if(code == 200){
+                  console.log('编辑成功');
+              }else{
+                  this.$message.error({
+                                message:msg,
+                                center:true
+                            });
+              }
+          })
 	    },
+        editTableColums(){
+            // 设置更改时，缓存表格展示列设置
+            sessionStorage.setItem('table_colums_setting',JSON.stringify(this.workorder_colums_setting));
+        }
     }
   };
 </script>
@@ -351,4 +378,36 @@ $tableH: var(--tableHeight);
         flex-direction: column;
         min-width: 100px;
     }
+ .el-table{
+      height: 100%;
+      .el-table__body-wrapper{
+          overflow: auto;
+          height: calc(100% - 85px);
+          &::-webkit-scrollbar {
+            width: 0px;           /* 纵向滚动条 宽度 */ 
+            height: 8px;           /* 横向滚动条 高度 */
+            // display: none;
+          }
+          ::-webkit-scrollbar-button{
+            width: 10px;          /* 横向滚动条 宽度 */
+            height: 0px;         /* 纵向滚动条 高度 */
+            border-radius: 10px;
+          }
+          /* Track */
+          &::-webkit-scrollbar-track {
+              background: rgba(223, 219, 219, 0.2);
+              border-radius: 8px;
+              width: 8px;
+          }
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+              background: rgb(202, 203, 204);
+              border-radius: 8px;
+          }
+      }
+      .cell.el-tooltip{
+        text-align: center;
+      }
+  }
+
 </style>

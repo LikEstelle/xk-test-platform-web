@@ -8,3 +8,11 @@ export function getWorkOrderData(page_number,page_size) {
     method: 'get'
   })
 }
+
+export function editWorkOrderData(id,data){
+  return request({
+    url: `/testflow/tools/WorkOrder/${id}/`,
+    method:'patch',
+    data
+  })
+}

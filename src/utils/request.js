@@ -25,8 +25,10 @@ service.interceptors.request.use(
     }
     const { data, params, method } = config;
     if(method === 'get') {
-      config.params = data
+      config.params = data;
     } else if(method === 'post') {
+      config.data = data;
+    }else if(method === 'patch'){
       config.data = data;
     }
     return config
