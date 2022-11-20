@@ -115,3 +115,21 @@ export function Scrip(type) {
     method: 'get',
   })
 }
+
+
+// 导入
+export function Import(data) {
+  return request({
+    url: '/testflow/tools/importhar/',
+    method: 'post',
+    data
+  })
+}
+
+// 获取接口模块
+export function Module(data) {
+  return request({
+    url: "/testflow/TestCase/Module",
+    data
+  })
+}

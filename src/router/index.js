@@ -137,7 +137,11 @@ export const constantRoutes = [
         path: 'upload',
         name: 'UPload',
         component: () => import('@/views/testflow/tools/upload/index'),
+<<<<<<< HEAD
         meta: { title: '导入', icon: 'el-icon-upload2' }
+=======
+        meta: { title: '接口采集', icon: 'el-icon-upload' }
+>>>>>>> f716231f0508a07ab18819f85876a5f037364498
 
       }
     ]
