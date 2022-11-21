@@ -50,60 +50,63 @@
             </el-popover>
         </div>
     </div>
-    <div class="table_container" :style="{'--tableHeight':tableHeight}">
-        <el-table :data="workorderTableData" style="width: 100%" @cell-click="cellClick" :row-class-name="tableRowClassName"
-                :cell-class-name="tableCellClassName">
-            <el-table-column v-for="(col,index) in workorder_colums" :key="index" align="center"
-            :prop="col.colums_key" :label="col.colums_name" :width="col.colums_width" show-overflow-tooltip>
-                <template slot-scope="scope">
-                    <!-- 以tag形式展示数据，聚焦后下拉框选择 -->
-                    <tableEdit v-if="col.colums_key == 'is_problem' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'primary'"></tableEdit>
-                    <tableEdit v-else-if="col.colums_key == 'type' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'warning'"></tableEdit>
-                    <tableEdit v-else-if="col.colums_key == 'problem_side' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'success'"></tableEdit>
-                    <tableEdit v-else-if="col.colums_key == 'module' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'info'"></tableEdit>
-                    
-                    <!-- 以span标签展示数据，获取到的是code展示对应的文案，聚焦后下拉框选择 -->
-                    <tableEdit v-else-if="col.colums_key == 'is_solved' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
-                    <tableEdit v-else-if="col.colums_key == 'is_repeat' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
-                    <tableEdit v-else-if="col.colums_key == 'is_convert_demand' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
-                    <tableEdit v-else-if="col.colums_key == 'is_adopted' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
-                                :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+    <!-- <div class="table_container" :style="{'--tableHeight':tableHeight}"> -->
+    <el-table :key="refreshTable" :data="workorderTableData" style="width: 100%" @cell-click="cellClick" :row-class-name="tableRowClassName"
+            :cell-class-name="tableCellClassName" :cell-style="cellStyle" ref="multipleTable" class="table_container" :style="{'--tableHeight':tableHeight}" >
+        <el-table-column v-for="(col,index) in workorder_colums" :key="index" align="center"
+        :prop="col.colums_key" :label="col.colums_name" :width="col.colums_width" show-overflow-tooltip :fixed="col.isfixed" :sortable="col.issortable">
+            <template slot-scope="scope">
+                <!-- 以tag形式展示数据，聚焦后下拉框选择 -->
+                <tableEdit v-if="col.colums_key == 'is_problem'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'primary'"></tableEdit>
+                <tableEdit v-else-if="col.colums_key == 'type'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'warning'"></tableEdit>
+                <tableEdit v-else-if="col.colums_key == 'problem_side'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'success'"></tableEdit>
+                <tableEdit v-else-if="col.colums_key == 'module'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'tag'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'info'"></tableEdit>
+                
+                <!-- 以span标签展示数据，获取到的是code展示对应的文案，聚焦后下拉框选择 -->
+                <tableEdit v-else-if="col.colums_key == 'is_solved' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+                <tableEdit v-else-if="col.colums_key == 'is_repeat' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+                <tableEdit v-else-if="col.colums_key == 'is_convert_demand' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
+                <tableEdit v-else-if="col.colums_key == 'follow_result' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'primary'"></tableEdit>          
+                <tableEdit v-else-if="col.colums_key == 'is_adopted'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                            :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'primary'"></tableEdit>
 
-                    <!-- 标题带url -->
-                    <a v-else-if="col.colums_key == 'title'" :href="scope.row['url']" target="_blank" class="buttonText">{{scope.row[col.colums_key]}}</a>
-                    <!-- 不可编辑的字段 -->
-                    <span v-else-if="col.colums_key == 'create_time'">{{scope.row[col.colums_key]}}</span>
+                <!-- 标题带url -->
+                <a v-else-if="col.colums_key == 'title'" :href="scope.row['url']" target="_blank" class="buttonText" style="color: #409EFF">{{scope.row[col.colums_key]}}</a>
+                <!-- 不可编辑的字段 -->
+                <span v-else-if="col.colums_key == 'create_time'">{{scope.row[col.colums_key]}}</span>
 
-                    <!-- 其余字段可以编辑，有焦点时可以input,失去焦点时可以编辑 -->
-                    <fy-tooltip v-else :tipContent="scope.row[col.colums_key]">
-                        <el-input
-                            v-if="scope.row.index == rowIndex && scope.column.index == columnIndex"
-                            v-model="scope.row[col.colums_key]"
-                            @blur="inputBlur(scope.row)"
-                            size="mini"
-                        ></el-input>
-                        <span v-else>{{scope.row[col.colums_key]}}</span>
-                    </fy-tooltip>
-                    
-                    <span v-if="(scope.row[col.colums_key] == '' || scope.row[col.colums_key] == null)&& scope.row[col.colums_key]!=0 && !(scope.row.index == rowIndex && scope.column.index == columnIndex)">-</span>
-                </template>
-            </el-table-column>
-        </el-table>
-    </div>
+                <!-- 其余字段可以编辑，有焦点时可以input,失去焦点时可以编辑 -->
+                <fy-tooltip v-else :tipContent="scope.row[col.colums_key]">
+                    <el-input
+                        v-if="scope.row.index == rowIndex && scope.column.index == columnIndex"
+                        v-model="scope.row[col.colums_key]"
+                        @blur="inputBlur(scope.row)"
+                        size="mini"
+                    ></el-input>
+                    <span v-else-if="scope.row[col.colums_key] != ''">{{scope.row[col.colums_key]}}</span>
+                    <span v-else>-</span>
+                </fy-tooltip>
+                <span v-if="(scope.row[col.colums_key] == '' || scope.row[col.colums_key] == null)&& scope.row[col.colums_key]!=0 && !(scope.row.index == rowIndex && scope.column.index == columnIndex)">-</span>
+            </template>
+        </el-table-column>
+    </el-table>
+    <!-- </div> -->
     <div class="page_container">
         <el-pagination
         background
-        layout=" ->, prev, pager, next"
+        layout="slot, ->, prev, pager, next,jumper"
         :total="total_count"
         @current-change="handleCurrentChange"
         :current-page="current_page">
+        <span>共计：{{total_count}}条</span>
         </el-pagination>
     </div>
   </div>
@@ -113,7 +116,7 @@ import { mapGetters } from 'vuex'
 import Select from '@/components/Select/index.vue'
 import tableEditComponent from './tableEditComponent.vue'
 import filters from '@/store/workorder/filters'
-import tableDefaultColumsSetting from '@/store/workorder/tableDefaultColums'
+import tableDefaultColumsSettingData from '@/store/workorder/tableDefaultColums'
 import { getWorkOrderData, editWorkOrderData } from '@/api/tool'
 export default {
     data() {
@@ -122,13 +125,15 @@ export default {
             indexHeight:'',
             windowWidth:'',
             refreshKey:1,
+            refreshTable: 0,
+            
             workorderFilters: filters,
 
             addFilterPopoverVisible: false,
             settingPopoverVisible: false,
             dialogFormVisible: false,
 
-            workorder_colums_setting: tableDefaultColumsSetting,
+            workorder_colums_setting: tableDefaultColumsSettingData,
 
             workorderTableData:[],
             tableHeight:'100px',
@@ -138,19 +143,8 @@ export default {
             current_page:1,
             total_count:0,
 
-            form: {
-            name: '',
-            region: '',
-            date1: '',
-            date2: '',
-            delivery: false,
-            type: [],
-            resource: '',
-            desc: ''
-            },
-            formLabelWidth: '120px',
-
             search_input_text:'',
+            workorder_colums_count:0,
             
 
       }
@@ -191,10 +185,13 @@ export default {
             if(session_setting!=null){
                 this.workorder_colums_setting = session_setting
             }
-            return this.workorder_colums_setting.filter((item) => {
+            let colums = this.workorder_colums_setting.filter((item) => {
                 return item.is_show == true
             })
-        }
+
+            this.workorder_colums_count = colums.length
+            return colums
+        },
     },
     mounted() {
         //浏览器可见区域高度
@@ -225,7 +222,7 @@ export default {
             }else{
                 this.tableHeight = '100px'
             }
-        }
+        },
     },
     methods:{
         async getWorkOrderList(){
@@ -251,6 +248,7 @@ export default {
                         is_repeat: responseList[item]['is_repeat'],
                         replay: responseList[item]['replay'],
                         follower: responseList[item]['follower'],
+                        follow_result: responseList[item]['follow_result'],
                         is_convert_demand: responseList[item]['is_convert_demand'],
                         demand_confirmer: responseList[item]['demand_confirmer'],
                         is_adopted: responseList[item]['is_adopted'],
@@ -258,6 +256,9 @@ export default {
                     }
                     this.workorderTableData.push(workorderItem);
                 }
+                this.$nextTick(() => {
+                    this.$ref.multipleTable.doLayout();
+                });
             }
         },
         //翻页   获取工单列表当前页的数据
@@ -298,6 +299,7 @@ export default {
             is_repeat: rowData.is_repeat,
             replay: rowData.replay,
             follower: rowData.follower,
+            follow_result: rowData.follow_result,
             is_convert_demand: rowData.is_convert_demand,
             demand_confirmer: rowData.demand_confirmer,
             is_adopted: rowData.is_adopted,
@@ -318,7 +320,17 @@ export default {
         editTableColums(){
             // 设置更改时，缓存表格展示列设置
             sessionStorage.setItem('table_colums_setting',JSON.stringify(this.workorder_colums_setting));
-        }
+            // 配置变化时，重新渲染表格
+            this.refreshTable++;
+        },
+        //设置hover样式，hover出现小手
+        cellStyle(data){
+            // 创建时间列除外
+            if(data.column.property!='create_time'){
+                return "cursor:pointer;"
+            }
+        },
+
     }
   };
 </script>
@@ -368,6 +380,7 @@ $tableH: var(--tableHeight);
         border-radius: 5px;
         margin: 0px 10px;
         min-width: 1300px;
+
     }
     .page_container{
         padding: 10px;

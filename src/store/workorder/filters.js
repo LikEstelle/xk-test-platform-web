@@ -219,12 +219,18 @@ const filters = [
         isFixedDisplay:false,
         options:[
             {
-                value: 1,
-                label: '是',
-            },{
                 value: 0,
-                label: '否',
-            }
+                label: '需求采纳',
+            },{
+                value: 1,
+                label: '需求打回',
+            },{
+                value: 2,
+                label: '需求排期中',
+            },{
+                value: 3,
+                label: '需求已上线',
+            },
         ]
     }
 ]
