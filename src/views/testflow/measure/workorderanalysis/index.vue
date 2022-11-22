@@ -79,13 +79,13 @@
                             :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'info'"></tableEdit>
                 
                 <!-- 以span标签展示数据，获取到的是code展示对应的文案，聚焦后下拉框选择 -->
-                <tableEdit v-else-if="col.colums_key == 'is_solved' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                <tableEdit v-else-if="col.colums_key == 'is_solved'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
                             :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
-                <tableEdit v-else-if="col.colums_key == 'is_repeat' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                <tableEdit v-else-if="col.colums_key == 'is_repeat'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
                             :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
-                <tableEdit v-else-if="col.colums_key == 'is_convert_demand' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                <tableEdit v-else-if="col.colums_key == 'is_convert_demand'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
                             :columnIndex="columnIndex" :rowIndex="rowIndex"></tableEdit>
-                <tableEdit v-else-if="col.colums_key == 'follow_result' && scope.row[col.colums_key]!==''" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
+                <tableEdit v-else-if="col.colums_key == 'follow_result'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
                             :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'primary'"></tableEdit>          
                 <tableEdit v-else-if="col.colums_key == 'is_adopted'" :scope="scope" :col="col" :inputBlur="inputBlur" :componentType="'span'"
                             :columnIndex="columnIndex" :rowIndex="rowIndex" :tagType="'primary'"></tableEdit>

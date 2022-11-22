@@ -43,11 +43,12 @@
             <el-option v-for="item in (col.options)" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
         </el-select>
-        <div v-if="!(scope.row.index == rowIndex && scope.column.index == columnIndex)">
+        <div v-else-if="scope.row[col.colums_key]!=='' && scope.row[col.colums_key]!==null">
             <span v-for="(item, index) in (col.options)" :key="index">
             {{ scope.row[col.colums_key] == item.value? item.label: "" }}
             </span>
         </div>
+        <span v-else>-</span>
     </div>
 </template>
 <script >
