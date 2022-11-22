@@ -142,8 +142,11 @@ export default {
             brCount:3,
             refreshKey:1,
             refreshTable: 0,
-            
+
+            // 下拉筛选项的筛选列表
             workorderFilters: filters,
+
+            // 日期筛选项的快捷选择项
             pickerDateOptions: {
                 shortcuts: [{
                     text: '最近一周',
@@ -210,20 +213,25 @@ export default {
             let leftWidth = this.sidebar.opened ? '210' : '54';
             return (this.windowWidth-leftWidth)+'px'
         },
+        // 可见的筛选项List
         filterVisibleList(){
 			return this.workorderFilters.filter((item) => {
 				return item.visible == true
 			})
 		},
+        // 第一行筛选项List
         firstVisibleList(){
             return this.filterVisibleList.slice(0,this.brCount)
         },
+        // 第二行筛选项List
         secondVisibleList(){
             return this.filterVisibleList.slice(this.brCount,this.filterVisibleList.length)
         },
+        // 过滤后，可见的筛选项个数
         filterVisibleCount(){
             return this.filterVisibleList.length
         },
+        // 工单列表展示的列
         workorder_colums(){
             // 获取缓存的表格展示列设置
             var session_setting = JSON.parse(sessionStorage.getItem('table_colums_setting'));
@@ -275,6 +283,7 @@ export default {
         },
     },
     methods:{
+        // 请求工单列表
         async getWorkOrderList(){
             this.params["page_number"] = this.current_page
             this.params["page_size"] = 10
@@ -388,6 +397,7 @@ export default {
             is_adopted: rowData.is_adopted,
 
         }
+        // 编辑单条工单数据
         editWorkOrderData(id, editData).then(response=>{
               let {msg,code,data} = response;
               if(code == 200){
@@ -400,13 +410,14 @@ export default {
               }
           })
 	    },
+        // 编辑表格展示列的配置
         editTableColums(){
             // 设置更改时，缓存表格展示列设置
             sessionStorage.setItem('table_colums_setting',JSON.stringify(this.workorder_colums_setting));
             // 配置变化时，重新渲染表格
             this.refreshTable++;
         },
-        //设置hover样式，hover出现小手
+        //设置单元格的hover样式，hover出现小手
         cellStyle(data){
             // 创建时间列除外
             if(data.column.property!='create_time'){
@@ -424,7 +435,6 @@ $rightW: var(--rightWidth);
     height: calc(100vh - 45px);
     width: #{$rightW};
     background-color: #F3F4F6;
-    // position: fixed;
     
     .query-criteria-container{
         height: var(filterHeight);
@@ -432,7 +442,6 @@ $rightW: var(--rightWidth);
         display: flex;
         flex-direction: row;
         align-items: center;
-        // justify-content:space-between;
         
         .filtes_group{
             display: flex;
@@ -455,6 +464,7 @@ $rightW: var(--rightWidth);
             margin-right: 10px;
         }
         
+        // 设置icon靠右
         .setting_icon{
             margin-left:auto;
             margin-right: 10px;
@@ -511,7 +521,7 @@ $rightW: var(--rightWidth);
   }
 // 日期选择框的宽度
 .el-date-editor.el-input, .el-date-editor.el-input__inner { width: 230px; }
-
+// 日期选择弹出框的宽度
 .elDatePickerPoper.el-picker-panel{
     width: 700px;
 }
