@@ -2,7 +2,7 @@
 <template>
   <div class="timepick-width-prepend">
         <el-button type="default" class="prepend-text" size="mini">{{title}}</el-button>
-        <el-select class="behind-select"  v-model="value" placeholder="请选择" size="mini" clearable filterable>
+        <el-select class="behind-select"  v-model="value" placeholder="请选择" size="mini" clearable filterable @change="sendData(filter_key, value)">
             <el-option
             class="select_option"
             v-for="item in options"
@@ -17,8 +17,8 @@
 export default {
     data() {
       return{
-         options: this.option,
-          value: "",
+        options: this.option,
+        value: "",
 
       }
     },
@@ -28,10 +28,14 @@ export default {
             required:true,
             default:'筛选'
         },
+        filter_key:{
+            type: String,
+            required:true,
+        },
         option:{
-          type:Object,
+          type:Array,
           required:true
-        }
+        },
     },
     components: {},
     created() {
@@ -39,6 +43,10 @@ export default {
     mounted() {
     },
     methods:{
+        sendData(filter,value) {
+            console.log('select',filter,value);
+        this.$parent.handleSelectedFilter(filter,value);
+      }
     }
   };
 </script>
@@ -46,7 +54,7 @@ export default {
 .timepick-width-prepend {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 10px;
     .prepend-text {
         background: #F5F7FA;
         color: #909399;

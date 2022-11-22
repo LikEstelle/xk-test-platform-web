@@ -56,6 +56,7 @@ service.interceptors.response.use(
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
+    // 404是请求的pagenumber没有数据，需要单独处理返回第一页
     if (res.code !== 20000 && res.code !==200) {
       Message({
         message: res.message || 'Error',

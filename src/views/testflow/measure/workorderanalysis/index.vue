@@ -4,10 +4,22 @@
       <div class="query-criteria-container">
         <div class="filtes_group">
             <div class="first_filters">
-                <el-input class="search_input" placeholder="请输入内容" prefix-icon="el-icon-search" v-model="search_input_text" clearable size="mini"></el-input>
+                <el-input class="search_input" placeholder="请输入内容" prefix-icon="el-icon-search" v-model="search_keyword" clearable size="mini" @change="addSearchKeyWord"></el-input>
+                
+                <el-date-picker v-model="dateValue" type="daterange" align="right" unlink-panels size="mini" popper-class="elDatePickerPoper"
+                range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
+                :picker-options="pickerDateOptions"
+                class="date_picker"
+                value-format="timestamp"
+                :default-time="['00:00:00', '23:59:59']"
+                @change="addDateFilter"
+                >
+                </el-date-picker>
+                
                 <div v-for="item in firstVisibleList" :key="item.id">
-                    <text-select v-if="item.visible == true" :title="item.filter_name" :option="item.options"/>    
+                    <text-select v-if="item.visible == true" :title="item.filter_name" :filter_key="item.filter_key" :option="item.options" />    
                 </div>
+
                 <el-popover
                     placement="bottom"
                     :width="80"
@@ -21,9 +33,9 @@
                     <el-button slot="reference" size="mini" icon="el-icon-plus" plain ></el-button>
                 </el-popover>
             </div>
-            <div class="second_filters" v-if="filterVisibleCount > 5">
+            <div class="second_filters" v-if="filterVisibleCount > brCount">
                 <div v-for="item in secondVisibleList" :key="item.id">
-                    <text-select v-if="item.visible == true" :title="item.filter_name" :option="item.options"/>    
+                    <text-select v-if="item.visible == true" :title="item.filter_name" :filter_key="item.filter_key" :option="item.options" />    
                 </div>
             </div>
         </div>
@@ -83,6 +95,9 @@
                 <!-- 不可编辑的字段 -->
                 <span v-else-if="col.colums_key == 'create_time'">{{scope.row[col.colums_key]}}</span>
 
+                <!-- 字段为空时展示- -->
+                <span v-else-if="(scope.row[col.colums_key] == '' || scope.row[col.colums_key] == null)&& scope.row[col.colums_key]!=0 && !(scope.row.index == rowIndex && scope.column.index == columnIndex)">-</span>
+
                 <!-- 其余字段可以编辑，有焦点时可以input,失去焦点时可以编辑 -->
                 <fy-tooltip v-else :tipContent="scope.row[col.colums_key]">
                     <el-input
@@ -94,7 +109,6 @@
                     <span v-else-if="scope.row[col.colums_key] != ''">{{scope.row[col.colums_key]}}</span>
                     <span v-else>-</span>
                 </fy-tooltip>
-                <span v-if="(scope.row[col.colums_key] == '' || scope.row[col.colums_key] == null)&& scope.row[col.colums_key]!=0 && !(scope.row.index == rowIndex && scope.column.index == columnIndex)">-</span>
             </template>
         </el-table-column>
     </el-table>
@@ -124,10 +138,40 @@ export default {
             windowHeight:'',
             indexHeight:'',
             windowWidth:'',
+            // 默认展示3个下拉筛选项，根据宽度判断增减
+            brCount:3,
             refreshKey:1,
             refreshTable: 0,
             
             workorderFilters: filters,
+            pickerDateOptions: {
+                shortcuts: [{
+                    text: '最近一周',
+                    onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                    picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近一个月',
+                    onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                    picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近三个月',
+                    onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                    picker.$emit('pick', [start, end]);
+                    }
+                }]
+            },
+            dateValue:'',
 
             addFilterPopoverVisible: false,
             settingPopoverVisible: false,
@@ -143,9 +187,10 @@ export default {
             current_page:1,
             total_count:0,
 
-            search_input_text:'',
+            search_keyword:'',
             workorder_colums_count:0,
             
+            params:{},
 
       }
     },
@@ -171,10 +216,10 @@ export default {
 			})
 		},
         firstVisibleList(){
-            return this.filterVisibleList.slice(0,5)
+            return this.filterVisibleList.slice(0,this.brCount)
         },
         secondVisibleList(){
-            return this.filterVisibleList.slice(5,this.filterVisibleList.length)
+            return this.filterVisibleList.slice(this.brCount,this.filterVisibleList.length)
         },
         filterVisibleCount(){
             return this.filterVisibleList.length
@@ -216,18 +261,27 @@ export default {
         indexHeight(val){
             this.indexHeight = val;
         },
-        filterVisibleCount(val){
-            if(val>5){
-                this.tableHeight = '140px'
+        // 监听页面宽度变化，灵活调整页面筛选区域，第一行筛选项个数
+        windowWidth(val){
+            if(val< 1500){
+                this.brCount = 3
+            }else if(val>=1500 && val<1700){
+                this.brCount = 4
+            }else if(val>=1700 && val<1900){
+                this.brCount = 5
             }else{
-                this.tableHeight = '100px'
+                this.brCount = 6
             }
         },
     },
     methods:{
         async getWorkOrderList(){
-            let response = await getWorkOrderData(this.current_page,10);
+            this.params["page_number"] = this.current_page
+            this.params["page_size"] = 10
+            console.log('data',this.params);
+            let response = await getWorkOrderData(this.params);
             if(response.code == 200){
+                this.workorderTableData = []
                 this.total_count = response['data']['total'];
                 var responseList = response['data']['list'];
                 // 将返回的list内的数据转换成workorderTableData
@@ -256,9 +310,13 @@ export default {
                     }
                     this.workorderTableData.push(workorderItem);
                 }
+                this.refreshTable++;
                 this.$nextTick(() => {
                     this.$ref.multipleTable.doLayout();
                 });
+            }else if(response.code == 404){
+                this.current_page = 1;
+                this.getWorkOrderList();
             }
         },
         //翻页   获取工单列表当前页的数据
@@ -269,6 +327,31 @@ export default {
             this.current_page = val;
             this.workorderTableData = [];
             await this.getWorkOrderList();
+        },
+        // 增加搜索条件，模糊搜索
+        addSearchKeyWord(){
+            this.current_page = 1;
+            this.params["search"] = this.search_keyword
+            this.getWorkOrderList();
+        },
+        // 增加开始时间，结束时间
+        addDateFilter(){
+            if(this.dateValue==null){
+                this.params["start_time"] = ""
+                this.params["end_time"] = ""
+            }else{
+                this.params["start_time"] = this.dateValue[0]
+                this.params["end_time"] = this.dateValue[1]
+            }
+            console.log(this.params);
+            this.getWorkOrderList();
+        },
+        // 增加下拉筛选
+        handleSelectedFilter(filter_key,value){
+            console.log("filter",filter_key,value);
+            this.current_page = 1;
+            this.params[filter_key] = value;
+            this.getWorkOrderList();
         },
         tableRowClassName({ row, rowIndex }) {
 	      // 把每一行的索引放到row里
@@ -337,12 +420,12 @@ export default {
 <style lang='scss'>
 $indexH: var(--indexHeight);
 $rightW: var(--rightWidth);
-$tableH: var(--tableHeight);
 .index_container{
-    height: calc(100vh - 60px);
+    height: calc(100vh - 45px);
     width: #{$rightW};
     background-color: #F3F4F6;
-    position: fixed;
+    // position: fixed;
+    
     .query-criteria-container{
         height: var(filterHeight);
         width: calc(100% - 20px);
@@ -365,7 +448,11 @@ $tableH: var(--tableHeight);
 
         .search_input{
             width: 200px;
-            margin-right: 20px;
+            margin-right: 10px;
+        }
+
+        .date_picker{
+            margin-right: 10px;
         }
         
         .setting_icon{
@@ -375,7 +462,7 @@ $tableH: var(--tableHeight);
     }
     .table_container{
         width: calc(100% - 20px);
-        height: calc(100% - #{$tableH});
+        height: calc(100% - 100px);
         background-color: #ffffff;
         border-radius: 5px;
         margin: 0px 10px;
@@ -422,5 +509,10 @@ $tableH: var(--tableHeight);
         text-align: center;
       }
   }
+// 日期选择框的宽度
+.el-date-editor.el-input, .el-date-editor.el-input__inner { width: 230px; }
 
+.elDatePickerPoper.el-picker-panel{
+    width: 700px;
+}
 </style>

@@ -11,7 +11,7 @@
             </el-option>
         </el-select>
         <div v-if="!(scope.row.index == rowIndex && scope.column.index == columnIndex)">
-            <el-tag v-if="scope.row[col.colums_key]!==''"  size="mini" :type="tagType">{{ scope.row[col.colums_key] }}</el-tag>
+            <el-tag v-if="scope.row[col.colums_key]!=='' && scope.row[col.colums_key]!==null"  size="mini" :type="tagType">{{ scope.row[col.colums_key] }}</el-tag>
             <span v-else>-</span>
         </div>
         
@@ -74,11 +74,11 @@ export default {
             require:true
         },
         rowIndex:{
-            type:String,
-            require,
+            type:Number,
+            require:true,
         },
         columnIndex:{
-            type:String,
+            type:Number,
             require:true,
         },
         tagType:{
