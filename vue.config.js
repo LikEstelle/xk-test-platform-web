@@ -5,6 +5,8 @@ const defaultSettings = require('./src/settings.js')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
+// console.log('VUE_APP_BASE_API ==='+process.env.VUE_APP_BASE_API)
+
 
 const name = defaultSettings.title || 'vue Admin Template' // page title
 
@@ -27,7 +29,9 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  // lintOnSave: process.env.NODE_ENV === 'development',
+  lintOnSave: false,
+  // host:'localhost',
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -36,7 +40,20 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    // before: require('./mock/mock-server.js'),
+    proxy:{
+      '/api':{
+        target:'http://tool.k8sv2.qa.internal.xiaoke.cn',
+        changeOrigin: true,
+        // pathRewrite:{'^/api':''},
+
+
+      },
+      '/testflow':{
+        target:'http://xiaoke-test-iterface.app.qa.internal.xiaoke.cn',
+        changeOrigin: true,
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -121,3 +138,4 @@ module.exports = {
       )
   }
 }
+

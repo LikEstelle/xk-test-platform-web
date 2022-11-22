@@ -7,8 +7,9 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <!-- <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar"> -->
+          <i class="el-icon-menu" style="font-size: 25px;"></i>
+          <!-- <i class="el-icon-caret-bottom" /> -->
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -108,6 +109,7 @@ export default {
     .avatar-container {
       margin-right: 30px;
 
+
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
@@ -117,8 +119,11 @@ export default {
           width: 40px;
           height: 40px;
           border-radius: 10px;
+     
         }
+        .el-icon-menu{
 
+        }
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;
@@ -130,4 +135,5 @@ export default {
     }
   }
 }
+
 </style>

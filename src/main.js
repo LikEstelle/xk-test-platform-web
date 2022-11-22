@@ -14,6 +14,12 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+import JsonViewer from 'vue-json-viewer'
+import vueiInfinite from 'vue-infinite-scroll'
+
+import axios from './http.js'
+import VueAxios from 'vue-axios'
+
 
 /**
  * If you don't want to use mock-server
@@ -29,11 +35,20 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, { locale })
+// Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+Vue.use(ElementUI)
+Vue.use(JsonViewer)
+
 
 Vue.config.productionTip = false
+Vue.use(vueiInfinite)
+
+Vue.use(VueAxios, axios)
+
+
+// import API from './api';
+// vue.prototype.$API=API;
 
 new Vue({
   el: '#app',

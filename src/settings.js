@@ -1,12 +1,12 @@
 module.exports = {
 
-  title: '测试脚本平台',
+  title: '质量平台',
 
   /**
    * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: false,
+  fixedHeader: true,
 
   /**
    * @type {boolean} true | false

@@ -42,112 +42,155 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      path: 'home',
+      name: '首页',
+      component: () => import('@/views/home/index'),
+      meta: { title: '首页', icon: 'el-icon-s-home' }
     }]
   },
-
   {
-    path: '/example',
+    path: '/testflow/measure',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/testflow/measure/versioniteration',
+    name: 'Measure',
+    meta: { title: '质量度量', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'versioniteration',
+        name: 'VersionIteration',
+        component: () => import('@/views/testflow/measure/versioniteration/index'),
+        meta: { title: '版本迭代', icon: 'el-icon-date' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'qualityreview',
+        name: 'QualityReview',
+        component: () => import('@/views/testflow/measure/qualityreview/index'),
+        meta: { title: '质量复盘', icon: 'el-icon-c-scale-to-original' }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
+        path:'workorderanalysis',
+        name:'WorkOrderAnalysis',
+        component:()=>import('@/views/testflow/measure/workorderanalysis/index'),
+        meta:{title:'工单分析',icon:'el-icon-data-line'}
       }
     ]
   },
+  {
+    path: '/testflow/guard',
+    component: Layout,
+    redirect: '/testflow/guard/monitoring',
+    name: 'Guard',
+    meta: { title: '质量哨兵', icon: 'el-icon-s-platform' },
+    children: [
+      {
+        path: 'monitoring',
+        name: 'Monitoring',
+        component: () => import('@/views/testflow/guard/monitoring/index'),
+        meta: { title: '异常监控', icon: 'el-icon-monitor' }
+      },
+      {
+        path: 'lnspection',
+        name: 'Lnspection',
+        component: () => import('@/views/testflow/guard/lnspection/index'),
+        meta: { title: '生产巡检', icon: 'el-icon-view' }
+      },
+      {
+        path: 'weburl',
+        name: 'WebUrl',
+        component: () => import('@/views/testflow/guard/weburl/index'),
+        meta: { title: 'web响应时间', icon: 'el-icon-pie-chart' }
+      },
+    ]
+  },
+  {
+    path: '/testflow/tools',
+    component: Layout,
+    redirect: '/testflow/tools/datatest',
+    name: 'Testflow',
+    meta: { title: '质量工具', icon: 'el-icon-s-cooperation' },
+    children: [
+      {
+        path: 'datatest',
+        name: 'DataTest',
+        component: () => import('@/views/testflow/tools/datatest/index'),
+        meta: { title: '数据对比', icon: 'el-icon-data-analysis' }
+      },
+      {
+        path: 'factory',
+        name: 'Factory',
+        component: () => import('@/views/testflow/tools/factory/index'),
+        meta: { title: '数据工厂', icon: 'el-icon-office-building' }
+      },
+      {
+        path: 'clueconstruct',
+        name: 'CluesConstruct',
+        component: () => import('@/views/testflow/tools/cluesconstrcut/index'),
+        meta: { title: '线索构造', icon: 'el-icon-folder-add' }
+
+      },
+      {
+        path: 'upload',
+        name: 'UPload',
+        component: () => import('@/views/testflow/tools/upload/index'),
+        meta: { title: '接口采集', icon: 'el-icon-upload2' }
+
+      }
+    ]
+  },
+  {
+    path: '/testflow/check',
+    component: Layout,
+    redirect: '/testflow/check/interface',
+    name: 'Check',
+    meta: { title: '质量检测', icon: 'el-icon-s-finance' },
+    children: [
+      {
+        path: 'interface',
+        name: 'Interface',
+        component: () => import('@/views/testflow/check/interface/index'),
+        meta: { title: '接口自动化', icon: 'el-icon-news' }
+      },
+      {
+        path: 'ui',
+        name: 'Ui',
+        component: () => import('@/views/testflow/check/ui/index'),
+        meta: { title: 'UI自动化', icon: 'el-icon-guide' }
+      },
+      {
+        path: 'caseEntry',
+        name: 'CaseEntry',
+        component: () => import('@/views/testflow/check/caseEntry/index'),
+        meta: { title:'用例录入', icon: 'el-icon-thumb' }
+      },
+    ]
+  },
+  {
+    path: '/testflow/manage',
+    component: Layout,
+    redirect: '/testflow/manage/scheduling',
+    name: 'Manage',
+    meta: { title: '质量管理', icon: 'el-icon-s-marketing' },
+    children: [
+      {
+        path: 'scheduling',
+        name: 'Scheduling',
+        component: () => import('@/views/testflow/manage/scheduling/index'),
+        meta: { title: '排期报表', icon: 'el-icon-stopwatch' }
+      },
+      {
+        path: 'file',
+        name: 'File',
+        component: () => import('@/views/testflow/manage/file/index'),
+        meta: { title: '质量文档', icon: 'el-icon-document' }
+      },
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
