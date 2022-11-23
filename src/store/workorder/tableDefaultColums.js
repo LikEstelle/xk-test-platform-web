@@ -14,7 +14,7 @@ const tableDefaultColumsSetting = [
         colums_width:'180px',
         is_show: true,
         isfixed: false,
-        issortable: true,
+        issortable: 'custom',
         index: 16,
     },
     {

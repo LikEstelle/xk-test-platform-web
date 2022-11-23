@@ -197,10 +197,10 @@ const filters = [
         isFixedDisplay:false,
         options:[
             {
-                value: 0,
+                value: '0',
                 label: '空',
             },{
-                value: 1,
+                value: '1',
                 label: '非空',
             }
         ]

@@ -64,7 +64,8 @@
     </div>
     <!-- <div class="table_container" :style="{'--tableHeight':tableHeight}"> -->
     <el-table :key="refreshTable" :data="workorderTableData" style="width: 100%" @cell-click="cellClick" :row-class-name="tableRowClassName"
-            :cell-class-name="tableCellClassName" :cell-style="cellStyle" ref="multipleTable" class="table_container" :style="{'--tableHeight':tableHeight}" >
+            :cell-class-name="tableCellClassName" :cell-style="cellStyle" ref="multipleTable" class="table_container" :style="{'--tableHeight':tableHeight}" 
+            @sort-change="sortByCreateTime">
         <el-table-column v-for="(col,index) in workorder_colums" :key="index" align="center"
         :prop="col.colums_key" :label="col.colums_name" :width="col.colums_width" show-overflow-tooltip :fixed="col.isfixed" :sortable="col.issortable">
             <template slot-scope="scope">
@@ -424,7 +425,21 @@ export default {
                 return "cursor:pointer;"
             }
         },
-
+        // 根据创建时间排序
+        sortByCreateTime(column){
+            //打印可以分别得到上下箭头的数据
+            // console.log(column);
+            if (column.order == "ascending") {
+                // 升序，是0
+                this.params["sort"] = "0";
+            } else if (column.order == "descending") {
+                this.params["sort"] = "1";
+            } else {
+                this.params["sort"] = "";
+            }
+            this.currentPage = 1;
+            this.getWorkOrderList();//查询工单列表方法
+        }
     }
   };
 </script>
