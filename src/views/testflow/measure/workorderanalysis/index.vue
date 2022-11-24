@@ -344,7 +344,7 @@ export default {
             this.params["search"] = this.search_keyword
             this.getWorkOrderList();
         },
-        // 增加开始时间，结束时间
+        // 增加开始时间，结束时间筛选
         addDateFilter(){
             if(this.dateValue==null){
                 this.params["start_time"] = ""
@@ -353,12 +353,15 @@ export default {
                 this.params["start_time"] = this.dateValue[0]
                 this.params["end_time"] = this.dateValue[1]
             }
-            console.log(this.params);
+            // console.log(this.params);
+            // 回到第一页
+            this.current_page = 1;
             this.getWorkOrderList();
         },
         // 增加下拉筛选
         handleSelectedFilter(filter_key,value){
-            console.log("filter",filter_key,value);
+            // console.log("filter",filter_key,value);
+            // 回到第一页
             this.current_page = 1;
             this.params[filter_key] = value;
             this.getWorkOrderList();
