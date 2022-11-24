@@ -437,7 +437,8 @@ export default {
             } else {
                 this.params["sort"] = "";
             }
-            this.currentPage = 1;
+            // 排序后回到第一页
+            this.current_page = 1;
             this.getWorkOrderList();//查询工单列表方法
         }
     }
