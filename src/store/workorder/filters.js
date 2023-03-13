@@ -132,7 +132,11 @@ const filters = [
             {
                 value:'协助工单',
                 label:'协助工单',
-            }
+            },
+            {
+                value: '微盟侧问题',
+                label: '微盟侧问题',
+            },
         ]
     },{
         id:3,

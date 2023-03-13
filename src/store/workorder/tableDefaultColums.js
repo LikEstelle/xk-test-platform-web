@@ -78,7 +78,11 @@ const tableDefaultColumsSetting = [
             {
                 value:9,
                 label:'协助工单',
-            }
+            },
+            {
+                value: 10,
+                label: '微盟侧问题',
+            },
         ]
     },{
         colums_key:'reason',
